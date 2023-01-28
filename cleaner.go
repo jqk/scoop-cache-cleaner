@@ -1,16 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"path"
 	"strings"
 	"time"
 )
 
-type ShowCleanItem func(pack *PackageInfo)
+// ShowCleaningItem is used to display current cleaning package information.
+type ShowCleaningItem func(pack *PackageInfo)
 
-// CleanResult stores various count during processing.
+// CleanResult stores processing result of cleaning.
 type CleanResult struct {
 	FileCount     int
 	CleanCount    int
@@ -18,26 +18,13 @@ type CleanResult struct {
 	BackupPath    string
 }
 
+// PackageInfo stores the information of software installation file.
 type PackageInfo struct {
 	Name    string
 	Version string
 }
 
-// checkPath make sure the provided scoop path is exist.
-func checkPath(path string) error {
-	file, err := os.Stat(path)
-
-	if err != nil && os.IsNotExist(err) {
-		return fmt.Errorf("scoop cache path is not exist")
-	}
-
-	if !file.IsDir() {
-		return fmt.Errorf("scoop cache path should not be a file")
-	}
-
-	return nil
-}
-
+// prepareBackupPath creates the backup directory when necessary.
 func prepareBackupPath(scoopPath string) (string, error) {
 	s := path.Join(scoopPath, time.Now().Format("bak_2006-01-02T15-04-05"))
 
@@ -45,16 +32,17 @@ func prepareBackupPath(scoopPath string) (string, error) {
 		return "", err
 	}
 
-	return formatPath(s)
+	return FormatPath(s)
 }
 
-func CleanScoopCache(scoopPath string, showItem ShowCleanItem) (*CleanResult, error) {
+// CleanScoopCache moves outdated installation files to the backup directory.
+func CleanScoopCache(scoopPath string, showItem ShowCleaningItem) (*CleanResult, error) {
 	backupPath, err := prepareBackupPath(scoopPath)
 	if err != nil {
 		return nil, err
 	}
 
-	if err := checkPath(scoopPath); err != nil {
+	if err := CheckPathExists(scoopPath); err != nil {
 		return nil, err
 	}
 

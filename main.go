@@ -22,7 +22,7 @@ func main() {
 	}
 
 	showCleanStart(scoopPath)
-	r, err := CleanScoopCache(scoopPath, showCleanItem)
+	r, err := CleanScoopCache(scoopPath, showCleaningItem)
 	showCleanResult(r, err)
 }
 
@@ -40,11 +40,11 @@ func showVersion() {
 func showHelp() {
 	fmt.Println("Usage: ")
 	fmt.Println("  scc [path/to/scoop/cache]")
-	fmt.Println("      clean specified directory.")
+	fmt.Println("      clean up the specified scoop cache directory.")
 	fmt.Println("  scc -e")
-	fmt.Println("      clean scoop cache directory defined in environment.")
+	fmt.Println("      clean up scoop cache directory defined in the environment.")
 	fmt.Println()
-	fmt.Println("  all other parameters will show this screen.")
+	fmt.Println("  all other parameters will display the above information.")
 	fmt.Println()
 }
 
@@ -53,7 +53,7 @@ func showCleanStart(scoopPath string) {
 	fmt.Println()
 }
 
-func showCleanItem(pack *PackageInfo) {
+func showCleaningItem(pack *PackageInfo) {
 	fmt.Println(pack.Name, pack.Version)
 }
 
@@ -74,23 +74,24 @@ func showCleanResult(result *CleanResult, err error) {
 	fmt.Println("-------------------")
 
 	if result.CleanCount == 1 {
-		fmt.Println("Cleaned file is moved into", result.BackupPath)
+		fmt.Println("Cleaned file has been moved to", result.BackupPath)
 	} else if result.CleanCount > 1 {
-		fmt.Println("Cleaned files are moved into", result.BackupPath)
+		fmt.Println("Cleaned files have been moved to", result.BackupPath)
 	}
 
 	fmt.Println()
 }
 
+// getScoopPath gets the formal path string from the command parameter or environment variable.
 func getScoopPath(param string) (string, error) {
 	if strings.HasPrefix(param, "-e") {
 		scoop := os.Getenv("SCOOP")
 		if scoop == "" {
-			return "", fmt.Errorf("environment variable SCOOP is not found")
+			return "", fmt.Errorf("environment variable SCOOP not found")
 		}
 
 		param = path.Join(scoop, "cache")
 	}
 
-	return formatPath(param)
+	return FormatPath(param)
 }
