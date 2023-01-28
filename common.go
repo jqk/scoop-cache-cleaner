@@ -1,31 +1,35 @@
 package main
 
 import (
-	"fmt"
 	"os"
+	"path"
 	"path/filepath"
 )
 
-// FormatPath returns the formal path string.
-func FormatPath(path string) (string, error) {
-	if p, err := filepath.Abs(path); err != nil {
+// FormatFileName returns the formal file name string.
+//
+// the fileName could be a path.
+func FormatFileName(fileName string) (string, error) {
+	if p, err := filepath.Abs(fileName); err != nil {
 		return "", err
 	} else {
 		return p, nil
 	}
 }
 
-// CheckPathExists checks whether the provided path exists.
-func CheckPathExists(path string) error {
-	file, err := os.Stat(path)
-
-	if err != nil && os.IsNotExist(err) {
-		return fmt.Errorf("the path does not exist")
+// IsFileExists checks whether the specified file exists.
+//
+// the fileName could be a path.
+func IsFileExists(fileName string) bool {
+	if _, err := os.Stat(fileName); err != nil && os.IsNotExist(err) {
+		return false
 	}
 
-	if !file.IsDir() {
-		return fmt.Errorf("the path is a file")
-	}
+	return true
+}
 
-	return nil
+// JoinFileName returns formal file name constructed by parameters.
+func JoinFileName(elem ...string) (string, error) {
+	s := path.Join(elem...)
+	return FormatFileName(s)
 }

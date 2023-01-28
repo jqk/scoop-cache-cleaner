@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path"
 	"strings"
 )
 
@@ -17,7 +16,7 @@ func main() {
 
 	scoopPath, err := getScoopPath(os.Args[1])
 	if err != nil {
-		fmt.Println(err)
+		showError(err)
 		return
 	}
 
@@ -59,7 +58,7 @@ func showCleaningItem(pack *PackageInfo) {
 
 func showCleanResult(result *CleanResult, err error) {
 	if err != nil {
-		fmt.Println(err)
+		showError(err)
 		return
 	}
 
@@ -82,7 +81,13 @@ func showCleanResult(result *CleanResult, err error) {
 	fmt.Println()
 }
 
-// getScoopPath gets the formal path string from the command parameter or environment variable.
+func showError(err error) {
+	fmt.Println("---------- Error! ----------")
+	fmt.Println(err)
+}
+
+// getScoopPath gets the formal path string from the command parameter
+// or environment variable.
 func getScoopPath(param string) (string, error) {
 	if strings.HasPrefix(param, "-e") {
 		scoop := os.Getenv("SCOOP")
@@ -90,8 +95,8 @@ func getScoopPath(param string) (string, error) {
 			return "", fmt.Errorf("environment variable SCOOP not found")
 		}
 
-		param = path.Join(scoop, "cache")
+		return JoinFileName(scoop, "cache")
 	}
 
-	return FormatPath(param)
+	return FormatFileName(param)
 }
