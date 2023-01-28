@@ -31,7 +31,7 @@ func main() {
 
 	showCleanStarting(scoopPath, backupPath)
 
-	r, err := clearScoopCache(scoopPath, backupPath)
+	r, err := cleanScoopCache(scoopPath, backupPath)
 	showCleanResult(r, err)
 }
 
@@ -134,7 +134,7 @@ func prepareBackupPath(scoopPath string) (string, error) {
 	return formatPath(s)
 }
 
-func clearScoopCache(scoopPath string, backupPath string) (*CleanResult, error) {
+func cleanScoopCache(scoopPath string, backupPath string) (*CleanResult, error) {
 	if err := checkPath(scoopPath); err != nil {
 		return nil, err
 	}
