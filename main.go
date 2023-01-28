@@ -21,15 +21,8 @@ func main() {
 		return
 	}
 
-	backupPath, err := prepareBackupPath(scoopPath)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	showCleanStarting(scoopPath, backupPath)
-
-	r, err := cleanScoopCache(scoopPath, backupPath)
+	showCleanStart(scoopPath)
+	r, err := CleanScoopCache(scoopPath, showCleanItem)
 	showCleanResult(r, err)
 }
 
@@ -55,10 +48,13 @@ func showHelp() {
 	fmt.Println()
 }
 
-func showCleanStarting(scoopPath string, backupPath string) {
+func showCleanStart(scoopPath string) {
 	fmt.Println("Cleaning", scoopPath)
-	fmt.Println("Outdated setup files will be moved into", backupPath)
 	fmt.Println()
+}
+
+func showCleanItem(pack *PackageInfo) {
+	fmt.Println(pack.Name, pack.Version)
 }
 
 func showCleanResult(result *CleanResult, err error) {
@@ -76,6 +72,13 @@ func showCleanResult(result *CleanResult, err error) {
 	fmt.Println("Setup file found  :", result.SoftwareCount)
 	fmt.Println("Setup file cleaned:", result.CleanCount)
 	fmt.Println("-------------------")
+
+	if result.CleanCount == 1 {
+		fmt.Println("Cleaned file is moved into", result.BackupPath)
+	} else if result.CleanCount > 1 {
+		fmt.Println("Cleaned files are moved into", result.BackupPath)
+	}
+
 	fmt.Println()
 }
 

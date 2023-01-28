@@ -8,11 +8,19 @@ import (
 	"time"
 )
 
+type ShowCleanItem func(pack *PackageInfo)
+
 // CleanResult stores various count during processing.
 type CleanResult struct {
 	FileCount     int
 	CleanCount    int
 	SoftwareCount int
+	BackupPath    string
+}
+
+type PackageInfo struct {
+	Name    string
+	Version string
 }
 
 // checkPath make sure the provided scoop path is exist.
@@ -40,7 +48,12 @@ func prepareBackupPath(scoopPath string) (string, error) {
 	return formatPath(s)
 }
 
-func cleanScoopCache(scoopPath string, backupPath string) (*CleanResult, error) {
+func CleanScoopCache(scoopPath string, showItem ShowCleanItem) (*CleanResult, error) {
+	backupPath, err := prepareBackupPath(scoopPath)
+	if err != nil {
+		return nil, err
+	}
+
 	if err := checkPath(scoopPath); err != nil {
 		return nil, err
 	}
@@ -55,7 +68,7 @@ func cleanScoopCache(scoopPath string, backupPath string) (*CleanResult, error) 
 		return nil, err
 	}
 
-	result := CleanResult{0, 0, 0}
+	result := CleanResult{0, 0, 0, backupPath}
 	count := len(files)
 
 	name := ""
@@ -89,7 +102,9 @@ func cleanScoopCache(scoopPath string, backupPath string) (*CleanResult, error) 
 					return &result, err
 				}
 
-				fmt.Println(name, version)
+				pack := &PackageInfo{name, version}
+
+				showItem(pack)
 			}
 		}
 	}
