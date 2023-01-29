@@ -10,12 +10,13 @@ import (
 func main() {
 	showVersion()
 
-	if shouldShowHelp() {
+	param, paramOk := parseCmdParameter()
+	if !paramOk {
 		showHelp()
 		return
 	}
 
-	scoopPath, err := getScoopPath(os.Args[1])
+	scoopPath, err := GetScoopPath(param)
 	if err != nil {
 		showError(err)
 		return
@@ -26,14 +27,20 @@ func main() {
 	showCleanResult(r, err)
 }
 
-func shouldShowHelp() bool {
-	return len(os.Args) != 2
+func parseCmdParameter() (string, bool) {
+	if len(os.Args) != 2 {
+		return "", false
+	} else if os.Args[1] == "-e" {
+		return "", true
+	}
+
+	return os.Args[1], true
 }
 
 func showVersion() {
 	fmt.Println()
 	fmt.Println("Copyright (c) 1999-2023 Not a dream Co., Ltd.")
-	fmt.Println("scoop cache cleaner (scc) 1.0.0, 2023-01-25")
+	fmt.Println("scoop cache cleaner (scc) 1.0.1, 2023-01-29")
 	fmt.Println()
 }
 
@@ -107,19 +114,4 @@ func showError(err error) {
 	fmt.Println("---------- Error! ----------")
 	fmt.Println(err)
 	color.Reset()
-}
-
-// getScoopPath gets the formal path string from the command parameter
-// or environment variable.
-func getScoopPath(param string) (string, error) {
-	if param == "-e" {
-		scoop := os.Getenv("SCOOP")
-		if scoop == "" {
-			return "", fmt.Errorf("environment variable SCOOP not found")
-		}
-
-		return JoinFileName(scoop, "cache")
-	}
-
-	return FormatFileName(param)
 }

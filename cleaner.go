@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"os"
 	"strings"
 	"time"
@@ -23,17 +24,19 @@ type PackageInfo struct {
 	Version string
 }
 
-// prepareBackupPath creates the backup directory when necessary.
-func prepareBackupPath(scoopPath string) (string, error) {
-	s, err := JoinFileName(scoopPath, time.Now().Format("bak_2006-01-02T15-04-05"))
-
-	if err == nil && !IsFileExists(s) {
-		if err = os.Mkdir(s, 0777); err != nil {
-			return "", err
+// GetScoopPath gets the formal path string from the command parameter
+// or environment variable.
+func GetScoopPath(param string) (string, error) {
+	if param == "" {
+		scoop := os.Getenv("SCOOP")
+		if scoop == "" {
+			return "", errors.New("environment variable SCOOP not found")
 		}
+
+		return JoinFileName(scoop, "cache")
 	}
 
-	return s, err
+	return FormatFileName(param)
 }
 
 // CleanScoopCache moves outdated installation files to the backup directory.
@@ -99,6 +102,19 @@ func CleanScoopCache(scoopPath string, showItem ShowCleaningItem) (*CleanResult,
 	}
 
 	return &result, nil
+}
+
+// prepareBackupPath creates the backup directory when necessary.
+func prepareBackupPath(scoopPath string) (string, error) {
+	s, err := JoinFileName(scoopPath, time.Now().Format("bak_2006-01-02T15-04-05"))
+
+	if err == nil && !IsFileExists(s) {
+		if err = os.Mkdir(s, 0777); err != nil {
+			return "", err
+		}
+	}
+
+	return s, err
 }
 
 // get the package information from file name.
