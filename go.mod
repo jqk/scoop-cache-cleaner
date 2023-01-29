@@ -1,4 +1,4 @@
-module scoop-cache-clearner
+module scc
 
 go 1.19
 

@@ -96,9 +96,9 @@ func showCleanResult(result *CleanResult, err error) {
 
 		color.Set(color.LightGreen)
 		fmt.Println(result.BackupPath)
-		fmt.Println()
 	}
 
+	fmt.Println()
 	color.Reset()
 }
 
