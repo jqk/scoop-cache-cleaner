@@ -7,10 +7,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     if: github.actor == github.event.repository.owner.login
-
+    
     steps:
-       - name: Checkout repository
-         uses: actions/checkout@v2
 
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: '>=1.19.0'
+        cache: true
          
