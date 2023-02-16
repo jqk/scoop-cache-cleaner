@@ -17,6 +17,7 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: '>=1.18.0'
+        cache: true
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v3
@@ -27,3 +28,11 @@ jobs:
 
     - name: Build
       run: go build ./...
+      
+    # 使用 goreleaser 进行生成多平台代码并且上传到github release进行发布
+    - name: Create release on GitHub
+      uses: docker://goreleaser/goreleaser:latest
+      with:
+        args: release
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
