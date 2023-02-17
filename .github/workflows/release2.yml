@@ -66,6 +66,8 @@ jobs:
       
     - name: Release
       uses: softprops/action-gh-release@v1
+      with:
+          files: ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
     #  uses: ncipollo/release-action@v1
 
     # - name: Uploading assets...
