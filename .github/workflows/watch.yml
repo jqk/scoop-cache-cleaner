@@ -6,7 +6,7 @@ on:
 jobs:
   releases-scoop:
     name: Release scoop cache cleaner binary
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         # build and publish in parallel: windows/amd64, windows/arm64
@@ -21,4 +21,3 @@ jobs:
           goarch: ${{ matrix.goarch }}
           binary_name: "scc"
           extra_files: readme-zh.md readme.md
-          
