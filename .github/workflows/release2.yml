@@ -1,0 +1,69 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+# It is copied from https://github.com/xuanyanwow/switchENV/blob/1.x/.github/workflows/go.yml
+# Description is in https://developer.aliyun.com/article/1112010
+
+name: MakeRelease
+
+on:
+  workflow_dispatch
+    
+jobs:
+
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        goarch: [amd64]
+        goos: [windows]
+        
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: '>=1.19.0'
+        cache: true
+
+    - name: Get version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.get_version.outputs.VERSION }}
+        release_name: ${{ steps.get_version.outputs.VERSION }}
+        draft: false
+        prerelease: false
+
+    - name: Test Release
+      run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event. ${{ steps.create_release.outputs.upload_url }}"
+
+      
+    - name: Build exe
+      run: go build -o ssc.exe
+      env:
+        GOOS: ${{ matrix.goos }}
+        GOARCH: ${{ matrix.goarch }}
+        CGO_ENABLED: 0
+      
+    - name: Packaging...
+      run: tar czf ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz ssc.exe
+      
+    - name: Uploading assets...
+      id: upload_release_asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+#        upload_url: ${{ github.event.release.upload_url }}
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
+        asset_name: ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
+        asset_content_type: application/gzip
