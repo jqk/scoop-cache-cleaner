@@ -11,7 +11,7 @@ jobs:
       matrix:
         # build and publish in parallel: windows/amd64, windows/arm64
         goos: [ windows ]
-        goarch: [ amd64, arm64 ]
+        goarch: [ amd64 ]
     steps:
       - uses: actions/checkout@v3
       - uses: wangyoucao577/go-release-action@v1.35
