@@ -40,17 +40,17 @@ jobs:
           echo $VERSION
           echo ${{ env.VERSION }}
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-      with:
-        tag_name: ${{ steps.get_version.outputs.VERSION }}
-        release_name: ${{ steps.get_version.outputs.VERSION }}
-        draft: false
-        prerelease: false
+    # - name: Create Release
+    #   id: create_release
+    #   uses: actions/create-release@v1
+    #   env:
+    #     # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+    #   with:
+    #     tag_name: ${{ steps.get_version.outputs.VERSION }}
+    #     release_name: ${{ steps.get_version.outputs.VERSION }}
+    #     draft: false
+    #     prerelease: false
 
     - name: Checkout
       uses: actions/checkout@v3
@@ -65,14 +65,17 @@ jobs:
     - name: Packaging...
       run: tar czf ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz ssc.exe
       
-    - name: Uploading assets...
-      id: upload_release_asset 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        # upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
-        asset_name: ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
-        asset_content_type: application/gzip
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      
+    # - name: Uploading assets...
+    #   id: upload_release_asset 
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     upload_url: ${{ github.event.release.upload_url }}
+    #     # upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: ./ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
+    #     asset_name: ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
+    #     asset_content_type: application/gzip
