@@ -39,17 +39,17 @@ jobs:
 
       run: echo "VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-      with:
-        tag_name: ${{ steps.get_version.outputs.VERSION }}
-        release_name: ${{ steps.get_version.outputs.VERSION }}
-        draft: false
-        prerelease: false
+    #- name: Create Release
+    #  id: create_release
+    #  uses: actions/create-release@v1
+    #  env:
+    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #    # GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+    #  with:
+    #    tag_name: ${{ steps.get_version.outputs.VERSION }}
+    #    release_name: ${{ steps.get_version.outputs.VERSION }}
+    #    draft: false
+    #    prerelease: false
 
     - name: Checkout
       uses: actions/checkout@v3
@@ -65,10 +65,12 @@ jobs:
       run: tar czf ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz ssc.exe
       
     - name: Release
-      uses: softprops/action-gh-release@v1
+    #  uses: softprops/action-gh-release@v1
+    #  with:
+    #      files: ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
+      uses: ncipollo/release-action@v1
       with:
-          files: ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
-    #  uses: ncipollo/release-action@v1
+        artifacts: ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
 
     # - name: Uploading assets...
     #   id: upload_release_asset 
