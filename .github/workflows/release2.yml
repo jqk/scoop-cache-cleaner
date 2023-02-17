@@ -30,7 +30,8 @@ jobs:
     - name: Get version
       id: get_version
       # ::set-output is deprecated, see https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      # run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
       # run: echo "VERSION=$(git tag --points-at HEAD)" >> $GITHUB_OUTPUT
 
     # - name: Create Release
