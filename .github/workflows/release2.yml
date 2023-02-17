@@ -64,18 +64,18 @@ jobs:
     - name: Packaging...
       run: tar czf ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz ssc.exe
       
-    # - name: Release
-    #  uses: softprops/action-gh-release@v1
+    - name: Release
+      uses: softprops/action-gh-release@v1
     #  uses: ncipollo/release-action@v1
 
-    - name: Uploading assets...
-      id: upload_release_asset 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        # upload_url: ${{ github.event.release.upload_url }}
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
-        asset_name: ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
-        asset_content_type: application/gzip
+    # - name: Uploading assets...
+    #   id: upload_release_asset 
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     # upload_url: ${{ github.event.release.upload_url }}
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: ./ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
+    #     asset_name: ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz
+    #     asset_content_type: application/gzip
