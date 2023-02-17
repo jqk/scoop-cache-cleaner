@@ -37,22 +37,19 @@ jobs:
       # run: echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
       # run: echo "VERSION=$(git tag --points-at HEAD)" >> $GITHUB_OUTPUT
 
-      run: |
-          echo "VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-          echo $VERSION
-          echo ${{ env.VERSION }}
+      run: echo "VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
 
-    # - name: Create Release
-    #   id: create_release
-    #   uses: actions/create-release@v1
-    #   env:
-    #     # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-    #   with:
-    #     tag_name: ${{ steps.get_version.outputs.VERSION }}
-    #     release_name: ${{ steps.get_version.outputs.VERSION }}
-    #     draft: false
-    #     prerelease: false
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      with:
+        tag_name: ${{ steps.get_version.outputs.VERSION }}
+        release_name: ${{ steps.get_version.outputs.VERSION }}
+        draft: false
+        prerelease: false
 
     - name: Checkout
       uses: actions/checkout@v3
@@ -64,12 +61,12 @@ jobs:
         GOARCH: ${{ matrix.goarch }}
         CGO_ENABLED: 0
       
-    #  - name: Packaging...
-    #  run: tar czf ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz ssc.exe
+    - name: Packaging...
+      run: tar czf ssc-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz ssc.exe
       
-    - name: Release
-      #uses: softprops/action-gh-release@v1
-      uses: ncipollo/release-action@v1
+    # - name: Release
+    #  uses: softprops/action-gh-release@v1
+    #  uses: ncipollo/release-action@v1
 
     # - name: Uploading assets...
     #   id: upload_release_asset 
