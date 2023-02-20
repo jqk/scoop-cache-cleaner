@@ -66,7 +66,7 @@ jobs:
 
       - name: Packaging...
         # 即使在 windows 中执行 github action，也不需要提前安装 tar，已内置。
-        run: tar czf ${{ matrix.artifactname }}-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz demo${{ matrix.artifactext }}
+        run: tar czf ${{ matrix.artifactname }}-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz ${{ matrix.artifactname }}${{ matrix.artifactext }}
 
       - name: Uploading artifact
         uses: softprops/action-gh-release@v1
