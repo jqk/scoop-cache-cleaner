@@ -1,25 +1,76 @@
-name: Release
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+# 这是显示在 github 页面上的 action 名称，可以与文件名不同。
+name: build and release
+
 on:
-  fork:
-    branches: [ "master" ]
+  push:
     tags:
-      - v[0-9]+.*
+      # 只当标签名为 v... 时触发，可以进一步约定为 v*.*.* 以更严格地定义。
+      - "v*"
 
 jobs:
-  releases-matrix:
-    name: Release scoop cache cleaner binary
+  build-and-release:
+    # 如果前面未对标签名进行验证，此处将判断是否签入了标签。若否，则放弃执行。
+    # if: startsWith(github.ref, 'refs/tags/')
+
+    # 可以在多个操作系统上执行。如果直接指定了操作系统，则不会使用下面的 matrix.os 定义。
+    # runs-on: ${{ matrix.os }}
+
+    # 也可以直接指定执行环境的操作系统。即使是 linux，也可以发布 windows 程序。
+    # linux 下的运行速度明显快于 windows。
     runs-on: ubuntu-latest
+
+    # 必须设置为 write，否则会因为权限原因无法上传编译后的文档。
+    permissions:
+      contents: write
+
     strategy:
       matrix:
-        # build and publish in parallel: windows/amd64, windows/arm64
-        goos: [ windows ]
-        goarch: [ amd64, arm64 ]
+        # 定义生成目标的操作系统的相关变量，即使有重复，也要分别定义，如 goarch。
+        include:
+          - goos: windows
+            artifactext: ".exe"
+            os: windows-latest
+            # 如果在 windows 下运行，环境变量前要加上 $Env。
+            # outputenv: "$Env:GITHUB_OUTPUT"
+            outputenv: "$GITHUB_OUTPUT"
+            # 因为不同平台用的内容相同，所以也可以使用 env 定义在外层，但集中一起更直观。
+            artifactname: "scc"
+            goarch: amd64
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: wangyoucao577/go-release-action@v1.35
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get version
+        # 此处的 id 在后面有所引用，所以必须定义。
+        id: get_version
+        # 注意，若在 Windows 中运行，则 >> 后应为 $Env:GITHUB_OUTPUT。否则等到的版本号没存到环境变量中。
+        run: echo "VERSION=$(git tag --points-at HEAD)" >> ${{ matrix.outputenv }}
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          goos: ${{ matrix.goos }}
-          goarch: ${{ matrix.goarch }}
-          binary_name: "scc"
-          extra_files: readme-zh.md readme.md
+          go-version: ">=1.19.0"
+          cache: true
+
+      - name: Build artifact
+        # 此处使用前面定义的不同操作系统中所生成程序的扩展名。
+        run: go build -o ${{ matrix.artifactname }}${{ matrix.artifactext }}
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          CGO_ENABLED: 0
+
+      - name: Packaging...
+        # 即使在 windows 中执行 github action，也不需要提前安装 tar，已内置。
+        run: tar czf ${{ matrix.artifactname }}-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz demo${{ matrix.artifactext }}
+
+      - name: Uploading artifact
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            *.tgz
+            readme.md
