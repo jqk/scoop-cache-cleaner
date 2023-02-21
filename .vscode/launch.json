@@ -14,7 +14,7 @@
           //"args": ["-e"]
           //"args": []
           //"args": ["f:/scoop/cache"]
-          "args": ["z:\\t"]
+          "args": ["-l", "z:/t"]
         }
       ]
 }

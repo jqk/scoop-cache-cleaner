@@ -10,31 +10,34 @@ import (
 func main() {
 	showVersion()
 
-	param, paramOk := parseCmdParameter()
-	if !paramOk {
+	action := parseCmdParameter()
+	if action == nil {
 		showHelp()
 		return
 	}
 
-	scoopPath, err := GetScoopPath(param)
+	var err error
+	action.ScoopPath, err = GetScoopPath(action.ScoopPath)
 	if err != nil {
 		showError(err)
 		return
 	}
 
-	showCleanStart(scoopPath)
-	r, err := CleanScoopCache(scoopPath, showCleaningItem)
+	showCleanStart(action.ScoopPath)
+	r, err := CleanScoopCache(action, showCleaningItem)
 	showCleanResult(r, err)
 }
 
-func parseCmdParameter() (string, bool) {
-	if len(os.Args) != 2 {
-		return "", false
-	} else if os.Args[1] == "-e" {
-		return "", true
-	}
+func parseCmdParameter() *ActionInfo {
+	n := len(os.Args)
 
-	return os.Args[1], true
+	if n == 2 {
+		return NewAction(os.Args[1], "")
+	} else if n == 3 {
+		return NewAction(os.Args[1], os.Args[2])
+	} else {
+		return nil
+	}
 }
 
 func showVersion() {

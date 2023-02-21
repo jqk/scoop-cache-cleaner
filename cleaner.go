@@ -28,6 +28,19 @@ type PackageInfo struct {
 	FileName string
 }
 
+type ActionInfo struct {
+	Action    string
+	ScoopPath string
+}
+
+func NewAction(action string, scoopPath string) *ActionInfo {
+	if action == "-l" || action == "-b" || action == "-d" {
+		return &ActionInfo{action, scoopPath}
+	}
+
+	return nil
+}
+
 // GetScoopPath gets the formal path string from the command parameter
 // or environment variable. At last, ensure the path exists.
 func GetScoopPath(param string) (string, error) {
@@ -57,14 +70,14 @@ func GetScoopPath(param string) (string, error) {
 }
 
 // CleanScoopCache moves outdated installation files to the backup directory.
-func CleanScoopCache(scoopPath string, showItem ShowCleaningItem) (*CleanResult, error) {
-	result, err := findOutdatedPackages(scoopPath)
+func CleanScoopCache(action *ActionInfo, showItem ShowCleaningItem) (*CleanResult, error) {
+	result, err := findOutdatedPackages(action.ScoopPath)
 	if err != nil {
 		return nil, err
 	}
 
 	if result.CleanCount > 0 {
-		backupPath, err := prepareBackupPath(scoopPath)
+		backupPath, err := prepareBackupPath(action.ScoopPath)
 		if err != nil {
 			return nil, err
 		}
@@ -72,7 +85,7 @@ func CleanScoopCache(scoopPath string, showItem ShowCleaningItem) (*CleanResult,
 		result.BackupPath = backupPath
 
 		for _, p := range result.CleanPackages {
-			old, _ := JoinFileName(scoopPath, p.FileName)
+			old, _ := JoinFileName(action.ScoopPath, p.FileName)
 			new, _ := JoinFileName(backupPath, p.FileName)
 
 			if err := os.Rename(old, new); err != nil {
