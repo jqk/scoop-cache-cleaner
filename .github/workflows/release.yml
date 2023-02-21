@@ -69,6 +69,7 @@ jobs:
         run: tar czf ${{ matrix.artifactname }}-${{ matrix.goos }}-${{ steps.get_version.outputs.VERSION }}.tgz ${{ matrix.artifactname }}${{ matrix.artifactext }}
 
       - name: Uploading artifact
+        # https://github.com/softprops/action-gh-release
         uses: softprops/action-gh-release@v1
         with:
           files: |
