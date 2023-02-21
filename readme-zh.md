@@ -18,19 +18,22 @@
 
 ```text {.line-numbers}
 Copyright (c) 1999-2023 Not a dream Co., Ltd.
-scoop cache cleaner (scc) 1.0.0, 2023-01-25
+scoop cache cleaner (scc) 2.0.0, 2023-02-21
 
 Usage:
-  scc [path/to/scoop/cache]
-      指定待清理的目录。
-  scc -e
-      通过 SCOOP 环境变量确定要清理的目录。
+  scc <command> [path/to/scoop/cache]
+      清理指定文件夹中的安装包。如果不指定路径，则使用环境变量 %SCOOP% 中定义的路径。
 
-  all other parameters will display the above information.
+Command:
+  -l:  显示过期的安装包。
+  -b:  备份过期的安装包。
+  -d:  删除过期的安装包。
+
+如果命令行参数非以上格式，则显示本屏信息。
 ```
 
-`%SCOOP%` 环境变量是在安装 [SCOOP][1] 设置的。例如, 若 `%SCOOP%` 值为 `C:\Scoop`，则 `scc -e` 将清理 `C:\Scoop\cache`。
+`%SCOOP%` 环境变量是在安装 [SCOOP][1] 设置的。例如, 若 `%SCOOP%` 值为 `C:\Scoop`，则 `scc -l` 将显示 `C:\Scoop\cache` 中的过期安装包。
 
-所以，若已按默认值设置环境变量或缓存目录（`%SCOOP%\cache`），则使用 `scc -e` 最为方便。
+所以，若已按默认值设置环境变量或缓存目录（`%SCOOP%\cache`），则使用 `scc -d` 最为方便，直接删除过期安装文件。
 
 [1]: https://github.com/ScoopInstaller/Scoop

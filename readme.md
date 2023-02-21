@@ -16,19 +16,23 @@ If you do not run `spoon cache rm *` or manually clean the directory, it will oc
 
 ```text {.line-numbers}
 Copyright (c) 1999-2023 Not a dream Co., Ltd.
-scoop cache cleaner (scc) 1.0.0, 2023-01-25
+scoop cache cleaner (scc) 2.0.0, 2023-02-21
 
 Usage:
-  scc [path/to/scoop/cache]
+  scc <command> [path/to/scoop/cache]
       clean up the specified scoop cache directory.
-  scc -e
-      clean up scoop cache directory defined in the environment.
+      if the path is omitted, it will use the path defined in the environment variable %SCOOP%.
 
-  all other parameters will display the above information.
+Command:
+  -l:  list the outdated packages.
+  -b:  backup the outdated packages.
+  -d:  delete the outdated packages.
+
+all other parameters will display the above information.
 ```
 
-For parameter `-e`, it takes the environment value of `%SCOOP%` and appends `cache` to it.
+If path is omitted, it takes the environment value of `%SCOOP%` and appends `cache` to it.
 
-For example, if `%SCOOP%` is `C:\Scoop`, `scc -e` will clean `C:\Scoop\cache`.
+For example, if `%SCOOP%` is `C:\Scoop`, `scc -l` will list outdated packages in `C:\Scoop\cache`.
 
 [1]: https://github.com/ScoopInstaller/Scoop
