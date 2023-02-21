@@ -28,14 +28,29 @@ type PackageInfo struct {
 	FileName string
 }
 
+// ActionType defines the types of action that can be executed.
+type ActionType int
+
+const (
+	List ActionType = iota
+	Backup
+	Delete
+)
+
+// ActionInfo stores the clean action information.
 type ActionInfo struct {
-	Action    string
+	Action    ActionType
 	ScoopPath string
 }
 
+// NewAction creates ActionInfo object according to provided strings.
 func NewAction(action string, scoopPath string) *ActionInfo {
-	if action == "-l" || action == "-b" || action == "-d" {
-		return &ActionInfo{action, scoopPath}
+	if action == "-l" {
+		return &ActionInfo{List, scoopPath}
+	} else if action == "-b" {
+		return &ActionInfo{Backup, scoopPath}
+	} else if action == "-d" {
+		return &ActionInfo{Delete, scoopPath}
 	}
 
 	return nil
@@ -77,22 +92,37 @@ func CleanScoopCache(action *ActionInfo, showItem ShowCleaningItem) (*CleanResul
 	}
 
 	if result.CleanCount > 0 {
-		backupPath, err := prepareBackupPath(action.ScoopPath)
-		if err != nil {
-			return nil, err
-		}
-
-		result.BackupPath = backupPath
-
-		for _, p := range result.CleanPackages {
-			old, _ := JoinFileName(action.ScoopPath, p.FileName)
-			new, _ := JoinFileName(backupPath, p.FileName)
-
-			if err := os.Rename(old, new); err != nil {
-				return result, err
+		if action.Action == List {
+			for _, p := range result.CleanPackages {
+				showItem(p)
+			}
+		} else if action.Action == Backup {
+			var err error
+			result.BackupPath, err = prepareBackupPath(action.ScoopPath)
+			if err != nil {
+				return nil, err
 			}
 
-			showItem(p)
+			for _, p := range result.CleanPackages {
+				old, _ := JoinFileName(action.ScoopPath, p.FileName)
+				new, _ := JoinFileName(result.BackupPath, p.FileName)
+
+				if err := os.Rename(old, new); err != nil {
+					return result, err
+				}
+
+				showItem(p)
+			}
+		} else if action.Action == Delete {
+			for _, p := range result.CleanPackages {
+				old, _ := JoinFileName(action.ScoopPath, p.FileName)
+
+				if err := os.Remove(old); err != nil {
+					return result, err
+				}
+
+				showItem(p)
+			}
 		}
 	}
 
