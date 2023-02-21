@@ -17,13 +17,15 @@ type CleanResult struct {
 	CleanSize     int64
 	SoftwareCount int
 	BackupPath    string
+	CleanPackages []*PackageInfo
 }
 
 // PackageInfo stores the information of software installation file.
 type PackageInfo struct {
-	Name    string
-	Version string
-	Size    int64
+	Name     string
+	Version  string
+	Size     int64
+	FileName string
 }
 
 // GetScoopPath gets the formal path string from the command parameter
@@ -56,11 +58,36 @@ func GetScoopPath(param string) (string, error) {
 
 // CleanScoopCache moves outdated installation files to the backup directory.
 func CleanScoopCache(scoopPath string, showItem ShowCleaningItem) (*CleanResult, error) {
-	backupPath, err := prepareBackupPath(scoopPath)
+	result, err := findOutdatedPackages(scoopPath)
 	if err != nil {
 		return nil, err
 	}
 
+	if result.CleanCount > 0 {
+		backupPath, err := prepareBackupPath(scoopPath)
+		if err != nil {
+			return nil, err
+		}
+
+		result.BackupPath = backupPath
+
+		for _, p := range result.CleanPackages {
+			old, _ := JoinFileName(scoopPath, p.FileName)
+			new, _ := JoinFileName(backupPath, p.FileName)
+
+			if err := os.Rename(old, new); err != nil {
+				return result, err
+			}
+
+			showItem(p)
+		}
+	}
+
+	return result, nil
+}
+
+// findOutdatedPackages finds outdated packages in specified path.
+func findOutdatedPackages(scoopPath string) (*CleanResult, error) {
 	f, err := os.Open(scoopPath)
 	if err != nil {
 		return nil, err
@@ -74,9 +101,9 @@ func CleanScoopCache(scoopPath string, showItem ShowCleaningItem) (*CleanResult,
 		return nil, err
 	}
 
+	result := &CleanResult{0, 0, 0, 0, "", make([]*PackageInfo, 0)}
 	count := len(files)
-	result := CleanResult{0, 0, 0, 0, backupPath}
-	newestPackage := PackageInfo{"", "", 0}
+	newestPackage := PackageInfo{"", "", 0, ""}
 
 	// process files in the list in reverse order.
 	// then first package is the newest one.
@@ -100,25 +127,15 @@ func CleanScoopCache(scoopPath string, showItem ShowCleaningItem) (*CleanResult,
 			} else if currentPackage.Version != newestPackage.Version {
 				result.CleanCount++
 				result.CleanSize += file.Size()
+				result.CleanPackages = append(result.CleanPackages, currentPackage)
+
 				currentPackage.Size = file.Size()
-
-				old, _ := JoinFileName(scoopPath, file.Name())
-				new, _ := JoinFileName(backupPath, file.Name())
-
-				if err := os.Rename(old, new); err != nil {
-					return &result, err
-				}
-
-				showItem(currentPackage)
+				currentPackage.FileName = file.Name()
 			}
 		}
 	}
 
-	if result.CleanCount == 0 {
-		os.Remove(backupPath)
-	}
-
-	return &result, nil
+	return result, nil
 }
 
 // prepareBackupPath creates the backup directory when necessary.
@@ -144,5 +161,5 @@ func getPackageInfo(fileName string) (*PackageInfo, bool) {
 		return nil, false
 	}
 
-	return &PackageInfo{parts[0], parts[1], 0}, true
+	return &PackageInfo{parts[0], parts[1], 0, ""}, true
 }
