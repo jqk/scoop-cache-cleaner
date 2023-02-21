@@ -162,12 +162,14 @@ func findOutdatedPackages(scoopPath string) (*CleanResult, error) {
 
 		// skip none scoop installation files by checking isPackage.
 		if currentPackage, isPackage := getPackageInfo(file.Name()); isPackage {
-			if currentPackage.Name != newestPackage.Name {
+			if !strings.EqualFold(currentPackage.Name, newestPackage.Name) {
+				// found a new package, it is the newest one.
 				result.SoftwareCount++
 
 				newestPackage.Name = currentPackage.Name
 				newestPackage.Version = currentPackage.Version
-			} else if currentPackage.Version != newestPackage.Version {
+			} else if !strings.EqualFold(currentPackage.Version, newestPackage.Version) {
+				// found old version package.
 				result.CleanCount++
 				result.CleanSize += file.Size()
 				result.CleanPackages = append(result.CleanPackages, currentPackage)
