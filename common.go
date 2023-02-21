@@ -17,10 +17,10 @@ func FormatFileName(fileName string) (string, error) {
 	}
 }
 
-// IsFileExists checks whether the specified file exists.
+// FileExists checks whether the specified file exists.
 //
 // the fileName could be a path.
-func IsFileExists(fileName string) bool {
+func FileExists(fileName string) bool {
 	if _, err := os.Stat(fileName); err != nil && os.IsNotExist(err) {
 		return false
 	}

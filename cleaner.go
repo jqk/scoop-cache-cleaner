@@ -14,6 +14,7 @@ type ShowCleaningItem func(pack *PackageInfo)
 type CleanResult struct {
 	FileCount     int
 	CleanCount    int
+	CleanSize     int64
 	SoftwareCount int
 	BackupPath    string
 }
@@ -22,21 +23,35 @@ type CleanResult struct {
 type PackageInfo struct {
 	Name    string
 	Version string
+	Size    int64
 }
 
 // GetScoopPath gets the formal path string from the command parameter
-// or environment variable.
+// or environment variable. At last, ensure the path exists.
 func GetScoopPath(param string) (string, error) {
+	var s string
+	var err error
+
 	if param == "" {
 		scoop := os.Getenv("SCOOP")
 		if scoop == "" {
 			return "", errors.New("environment variable SCOOP not found")
 		}
 
-		return JoinFileName(scoop, "cache")
+		s, err = JoinFileName(scoop, "cache")
+	} else {
+		s, err = FormatFileName(param)
 	}
 
-	return FormatFileName(param)
+	if err != nil {
+		return "", err
+	}
+
+	if FileExists(s) {
+		return s, nil
+	} else {
+		return "", errors.New("scoop cache path [" + s + "] does not exist")
+	}
 }
 
 // CleanScoopCache moves outdated installation files to the backup directory.
@@ -60,8 +75,8 @@ func CleanScoopCache(scoopPath string, showItem ShowCleaningItem) (*CleanResult,
 	}
 
 	count := len(files)
-	result := CleanResult{0, 0, 0, backupPath}
-	newestPackage := PackageInfo{"", ""}
+	result := CleanResult{0, 0, 0, 0, backupPath}
+	newestPackage := PackageInfo{"", "", 0}
 
 	// process files in the list in reverse order.
 	// then first package is the newest one.
@@ -84,6 +99,8 @@ func CleanScoopCache(scoopPath string, showItem ShowCleaningItem) (*CleanResult,
 				newestPackage.Version = currentPackage.Version
 			} else if currentPackage.Version != newestPackage.Version {
 				result.CleanCount++
+				result.CleanSize += file.Size()
+				currentPackage.Size = file.Size()
 
 				old, _ := JoinFileName(scoopPath, file.Name())
 				new, _ := JoinFileName(backupPath, file.Name())
@@ -108,7 +125,7 @@ func CleanScoopCache(scoopPath string, showItem ShowCleaningItem) (*CleanResult,
 func prepareBackupPath(scoopPath string) (string, error) {
 	s, err := JoinFileName(scoopPath, time.Now().Format("bak_2006-01-02T15-04-05"))
 
-	if err == nil && !IsFileExists(s) {
+	if err == nil && !FileExists(s) {
 		if err = os.Mkdir(s, 0777); err != nil {
 			return "", err
 		}
@@ -127,5 +144,5 @@ func getPackageInfo(fileName string) (*PackageInfo, bool) {
 		return nil, false
 	}
 
-	return &PackageInfo{parts[0], parts[1]}, true
+	return &PackageInfo{parts[0], parts[1], 0}, true
 }
