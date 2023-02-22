@@ -18,7 +18,7 @@
 
 ```text {.line-numbers}
 Copyright (c) 1999-2023 Not a dream Co., Ltd.
-scoop cache cleaner (scc) 2.0.0, 2023-02-21
+scoop cache cleaner (scc) 2.0.2, 2023-02-22
 
 Usage:
   scc <command> [path/to/scoop/cache]
