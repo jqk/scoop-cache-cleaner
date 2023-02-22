@@ -17,6 +17,7 @@ type CleanResult struct {
 	CleanSize     int64
 	SoftwareCount int
 	BackupPath    string
+	Action        ActionType
 	CleanPackages []*PackageInfo
 }
 
@@ -80,7 +81,7 @@ func GetScoopPath(param string) (string, error) {
 	if FileExists(s) {
 		return s, nil
 	} else {
-		return "", errors.New("scoop cache path [" + s + "] does not exist")
+		return "", errors.New("Scoop cache path [" + s + "] does not exist")
 	}
 }
 
@@ -90,6 +91,8 @@ func CleanScoopCache(action *ActionInfo, showItem ShowCleaningItem) (*CleanResul
 	if err != nil {
 		return nil, err
 	}
+
+	result.Action = action.Action
 
 	if result.CleanCount > 0 {
 		if action.Action == List {
@@ -144,7 +147,7 @@ func findOutdatedPackages(scoopPath string) (*CleanResult, error) {
 		return nil, err
 	}
 
-	result := &CleanResult{0, 0, 0, 0, "", make([]*PackageInfo, 0)}
+	result := &CleanResult{0, 0, 0, 0, "", 0, make([]*PackageInfo, 0)}
 	count := len(files)
 	newestPackage := PackageInfo{"", "", 0, ""}
 
