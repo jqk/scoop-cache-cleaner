@@ -100,7 +100,7 @@ func showCleanStart(action *ActionInfo) {
 	}
 
 	color.Reset()
-	fmt.Print(" outdated packages in: ")
+	fmt.Print(" obsolete packages in: ")
 
 	color.Set(color.LightGreen)
 	fmt.Println(action.ScoopPath)
