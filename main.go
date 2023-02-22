@@ -66,19 +66,19 @@ func showHelp() {
 	fmt.Print("  -l: ")
 
 	color.Reset()
-	fmt.Println(" list the outdated packages.")
+	fmt.Println(" list the obsolete packages.")
 
 	color.Set(color.LightYellow)
 	fmt.Print("  -b: ")
 
 	color.Reset()
-	fmt.Println(" backup the outdated packages.")
+	fmt.Println(" backup the obsolete packages.")
 
 	color.Set(color.LightYellow)
 	fmt.Print("  -d: ")
 
 	color.Reset()
-	fmt.Println(" delete the outdated packages.")
+	fmt.Println(" delete the obsolete packages.")
 
 	color.Set(color.LightYellow)
 	fmt.Println("\nall other parameters will display the above information.")
