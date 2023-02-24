@@ -16,6 +16,7 @@ type CleanResult struct {
 	CleanCount    int
 	CleanSize     int64
 	SoftwareCount int
+	ScoopPath     string
 	BackupPath    string
 	Action        ActionType
 	CleanPackages []*PackageInfo
@@ -86,42 +87,35 @@ func GetScoopPath(param string) (string, error) {
 }
 
 // CleanScoopCache moves outdated installation files to the backup directory.
-func CleanScoopCache(action *ActionInfo, showItem ShowCleaningItem) (*CleanResult, error) {
-	result, err := findOutdatedPackages(action.ScoopPath)
-	if err != nil {
-		return nil, err
-	}
-
-	result.Action = action.Action
-
+func CleanScoopCache(result *CleanResult, showItem ShowCleaningItem) error {
 	if result.CleanCount > 0 {
-		if action.Action == List {
+		if result.Action == List {
 			for _, p := range result.CleanPackages {
 				showItem(p)
 			}
-		} else if action.Action == Backup {
+		} else if result.Action == Backup {
 			var err error
-			result.BackupPath, err = prepareBackupPath(action.ScoopPath)
+			result.BackupPath, err = prepareBackupPath(result.ScoopPath)
 			if err != nil {
-				return nil, err
+				return err
 			}
 
 			for _, p := range result.CleanPackages {
-				old, _ := JoinFileName(action.ScoopPath, p.FileName)
+				old, _ := JoinFileName(result.ScoopPath, p.FileName)
 				new, _ := JoinFileName(result.BackupPath, p.FileName)
 
 				if err := os.Rename(old, new); err != nil {
-					return result, err
+					return err
 				}
 
 				showItem(p)
 			}
-		} else if action.Action == Delete {
+		} else if result.Action == Delete {
 			for _, p := range result.CleanPackages {
-				old, _ := JoinFileName(action.ScoopPath, p.FileName)
+				old, _ := JoinFileName(result.ScoopPath, p.FileName)
 
 				if err := os.Remove(old); err != nil {
-					return result, err
+					return err
 				}
 
 				showItem(p)
@@ -129,12 +123,12 @@ func CleanScoopCache(action *ActionInfo, showItem ShowCleaningItem) (*CleanResul
 		}
 	}
 
-	return result, nil
+	return nil
 }
 
-// findOutdatedPackages finds outdated packages in specified path.
-func findOutdatedPackages(scoopPath string) (*CleanResult, error) {
-	f, err := os.Open(scoopPath)
+// FindObsoletePackages finds obsolete packages in specified path.
+func FindObsoletePackages(action *ActionInfo) (*CleanResult, error) {
+	f, err := os.Open(action.ScoopPath)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +141,7 @@ func findOutdatedPackages(scoopPath string) (*CleanResult, error) {
 		return nil, err
 	}
 
-	result := &CleanResult{0, 0, 0, 0, "", 0, make([]*PackageInfo, 0)}
+	result := &CleanResult{0, 0, 0, 0, action.ScoopPath, "", action.Action, make([]*PackageInfo, 0)}
 	count := len(files)
 	newestPackage := PackageInfo{"", "", 0, ""}
 

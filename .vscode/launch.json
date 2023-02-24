@@ -11,10 +11,10 @@
           "mode": "auto",
           "program": "${workspaceFolder}",
           "env": {},
-          //"args": ["-b"]
+          "args": ["-l"]
           //"args": []
           //"args": ["f:/scoop/cache"]
-          "args": ["-l", "z:/t"]
+          //"args": ["-d", "z:/t"]
         }
       ]
 }

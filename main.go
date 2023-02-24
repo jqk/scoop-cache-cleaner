@@ -7,6 +7,8 @@ import (
 	"github.com/gookit/color"
 )
 
+var packageInfoFormat string
+
 func main() {
 	showVersion()
 
@@ -24,13 +26,21 @@ func main() {
 	}
 
 	showCleanStart(action)
-	r, err := CleanScoopCache(action, showCleaningItem)
+
+	result, err := FindObsoletePackages(action)
 	if err != nil {
 		showError(err)
 		return
 	}
 
-	showCleanResult(r)
+	packageInfoFormat = getPackageInfoFormat(result)
+
+	if err := CleanScoopCache(result, showCleaningItem); err != nil {
+		showError(err)
+		return
+	}
+
+	showCleanResult(result)
 }
 
 func parseCmdParameter() *ActionInfo {
@@ -48,7 +58,7 @@ func parseCmdParameter() *ActionInfo {
 func showVersion() {
 	fmt.Println()
 	fmt.Println("Copyright (c) 1999-2023 Not a dream Co., Ltd.")
-	fmt.Println("scoop cache cleaner (scc) 2.0.2, 2023-02-22")
+	fmt.Println("scoop cache cleaner (scc) 2.1.0, 2023-02-24")
 	fmt.Println()
 }
 
@@ -107,12 +117,36 @@ func showCleanStart(action *ActionInfo) {
 	fmt.Println()
 }
 
+func getPackageInfoFormat(result *CleanResult) string {
+	nameLength := 0
+	versionLength := 0
+
+	for _, p := range result.CleanPackages {
+		nl := len(p.Name)
+		vl := len(p.Version)
+
+		if nl > nameLength {
+			nameLength = nl
+		}
+		if vl > versionLength {
+			versionLength = vl
+		}
+	}
+
+	s := fmt.Sprintf("%%4d %%-%ds  %%-%ds  ", nameLength, versionLength)
+
+	return s
+}
+
 var count = 1
 
 func showCleaningItem(pack *PackageInfo) {
-	fmt.Printf("%4d ", count)
+	color.Reset()
+	fmt.Printf(packageInfoFormat, count, pack.Name, pack.Version)
 	count++
-	fmt.Println(pack.Name, pack.Version)
+
+	color.Set(color.LightRed)
+	fmt.Printf("%10s\n", FormatSize(pack.Size))
 }
 
 func showCleanResult(result *CleanResult) {
@@ -123,7 +157,7 @@ func showCleanResult(result *CleanResult) {
 	color.Set(color.LightGreen)
 	fmt.Println("-------------------")
 	fmt.Println("File found            :", result.FileCount)
-	fmt.Println("Package found         :", result.SoftwareCount)
+	fmt.Println("Software found        :", result.SoftwareCount)
 	fmt.Println("Obsolete Package found:", result.CleanCount)
 	fmt.Print("Obsolete Package Size : ")
 

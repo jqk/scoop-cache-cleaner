@@ -42,6 +42,7 @@ type Size interface {
 var kb float64 = 1024
 var mb = kb * kb
 var gb = mb * kb
+var tb = gb * kb
 
 // FormatSize convert size to string with unit.
 func FormatSize[T Size](size T) string {
@@ -53,7 +54,9 @@ func FormatSize[T Size](size T) string {
 		return fmt.Sprintf("%.2f KB", value/kb)
 	} else if value < gb {
 		return fmt.Sprintf("%.2f MB", value/mb)
-	} else {
+	} else if value < tb {
 		return fmt.Sprintf("%.2f GB", value/gb)
+	} else {
+		return fmt.Sprintf("%.2f TB", value/tb)
 	}
 }
