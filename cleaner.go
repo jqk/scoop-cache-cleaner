@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"os"
+	"sort"
 	"strings"
 	"time"
 )
@@ -19,7 +20,7 @@ type CleanResult struct {
 	ScoopPath     string
 	BackupPath    string
 	Action        ActionType
-	CleanPackages []*PackageInfo
+	CleanPackages Packages
 }
 
 // PackageInfo stores the information of software installation file.
@@ -28,6 +29,26 @@ type PackageInfo struct {
 	Version  string
 	Size     int64
 	FileName string
+}
+
+// Packages use to implement sort.interface()
+type Packages []*PackageInfo
+
+func (p Packages) Len() int {
+	return len(p)
+}
+
+func (p Packages) Swap(i, j int) {
+	p[i], p[j] = p[j], p[i]
+}
+
+func (p Packages) Less(i, j int) bool {
+	name_i := strings.ToLower(p[i].Name)
+	name_j := strings.ToLower(p[j].Name)
+	version_i := strings.ToLower(p[i].Version)
+	version_j := strings.ToLower(p[j].Version)
+
+	return name_i < name_j || name_i == name_j && version_i < version_j
 }
 
 // ActionType defines the types of action that can be executed.
@@ -177,6 +198,8 @@ func FindObsoletePackages(action *ActionInfo) (*CleanResult, error) {
 		}
 	}
 
+	sort.Sort(result.CleanPackages)
+
 	return result, nil
 }
 
@@ -193,7 +216,7 @@ func prepareBackupPath(scoopPath string) (string, error) {
 	return s, err
 }
 
-// get the package information from file name.
+// getPackageInfo returns the package information from file name.
 func getPackageInfo(fileName string) (*PackageInfo, bool) {
 	// the installation file name in scoop format is "name#version#other-information".
 	parts := strings.Split(fileName, "#")
