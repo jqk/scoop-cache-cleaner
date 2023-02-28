@@ -33,7 +33,7 @@ func main() {
 		return
 	}
 
-	packageInfoFormat = getPackageInfoFormat(result)
+	setPackageInfoFormat(result)
 
 	if err := CleanScoopCache(result, showCleaningItem); err != nil {
 		showError(err)
@@ -58,7 +58,7 @@ func parseCmdParameter() *ActionInfo {
 func showVersion() {
 	fmt.Println()
 	fmt.Println("Copyright (c) 1999-2023 Not a dream Co., Ltd.")
-	fmt.Println("scoop cache cleaner (scc) 2.1.1, 2023-02-27")
+	fmt.Println("scoop cache cleaner (scc) 2.1.2, 2023-02-28")
 	fmt.Println()
 }
 
@@ -117,7 +117,11 @@ func showCleanStart(action *ActionInfo) {
 	fmt.Println()
 }
 
-func getPackageInfoFormat(result *CleanResult) string {
+func setPackageInfoFormat(result *CleanResult) {
+	if result.CleanCount == 0 {
+		return
+	}
+
 	nameLength := 0
 	versionLength := 0
 
@@ -133,9 +137,14 @@ func getPackageInfoFormat(result *CleanResult) string {
 		}
 	}
 
-	s := fmt.Sprintf("%%4d %%-%ds  %%-%ds  ", nameLength, versionLength)
+	packageInfoFormat = fmt.Sprintf("%%4d %%-%ds  %%-%ds  ", nameLength, versionLength)
 
-	return s
+	t := fmt.Sprintf("     %%-%ds  %%-%ds  %%7s\n", nameLength, versionLength)
+	s := fmt.Sprintf(t, "Name", "Version", "Size")
+
+	color.Set(color.LightYellow)
+	fmt.Println(s)
+	color.Reset()
 }
 
 var count = 1
@@ -155,7 +164,7 @@ func showCleanResult(result *CleanResult) {
 	}
 
 	color.Set(color.LightGreen)
-	fmt.Println("-------------------")
+	fmt.Println("-----------------------")
 	fmt.Println("File found            :", result.FileCount)
 	fmt.Println("Software found        :", result.SoftwareCount)
 	fmt.Println("Obsolete Package found:", result.CleanCount)
@@ -166,7 +175,7 @@ func showCleanResult(result *CleanResult) {
 	fmt.Println(size)
 
 	color.Set(color.LightGreen)
-	fmt.Println("-------------------")
+	fmt.Println("-----------------------")
 
 	color.Reset()
 	fmt.Println()

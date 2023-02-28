@@ -11,10 +11,9 @@
           "mode": "auto",
           "program": "${workspaceFolder}",
           "env": {},
-          "args": ["-l"]
+          //"args": ["-l"]
           //"args": []
-          //"args": ["f:/scoop/cache"]
-          //"args": ["-d", "z:/t"]
+          "args": ["-l", "z:/"]
         }
       ]
 }
