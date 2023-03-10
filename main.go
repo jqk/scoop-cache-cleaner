@@ -137,10 +137,10 @@ func setPackageInfoFormat(result *CleanResult) {
 		}
 	}
 
-	packageInfoFormat = fmt.Sprintf("%%4d %%-%ds  %%-%ds  ", nameLength, versionLength)
+	packageInfoFormat = fmt.Sprintf("%%4d %%-%ds  %%-%ds  %%s  ", nameLength, versionLength)
 
-	t := fmt.Sprintf("     %%-%ds  %%-%ds  %%7s\n", nameLength, versionLength)
-	s := fmt.Sprintf(t, "Name", "Version", "Size")
+	t := fmt.Sprintf("     %%-%ds  %%-%ds  %%s  %%7s\n", nameLength, versionLength)
+	s := fmt.Sprintf(t, "Name", "Version", "Extension", "Size")
 
 	color.Set(color.LightYellow)
 	fmt.Println(s)
@@ -151,7 +151,7 @@ var count = 1
 
 func showCleaningItem(pack *PackageInfo) {
 	color.Reset()
-	fmt.Printf(packageInfoFormat, count, pack.Name, pack.Version)
+	fmt.Printf(packageInfoFormat, count, pack.Name, pack.Version, pack.FileName[len(pack.FileName)-9:])
 	count++
 
 	color.Set(color.LightRed)
