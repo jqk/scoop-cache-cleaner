@@ -148,13 +148,20 @@ func setPackageInfoFormat(result *CleanResult) {
 }
 
 var count = 1
+var sizeColorLimit int64 = 1024 * 1024
 
 func showCleaningItem(pack *PackageInfo) {
 	color.Reset()
+	// 9 is the length of 'Extension'.
 	fmt.Printf(packageInfoFormat, count, pack.Name, pack.Version, pack.FileName[len(pack.FileName)-9:])
 	count++
 
-	color.Set(color.LightRed)
+	if pack.Size < sizeColorLimit {
+		color.Set(color.Magenta)
+	} else {
+		color.Set(color.LightRed)
+	}
+
 	fmt.Printf("%10s\n", FormatSize(pack.Size))
 }
 
