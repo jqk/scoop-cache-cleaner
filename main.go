@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/gookit/color"
 )
@@ -58,7 +59,7 @@ func parseCmdParameter() *ActionInfo {
 func showVersion() {
 	fmt.Println()
 	fmt.Println("Copyright (c) 1999-2023 Not a dream Co., Ltd.")
-	fmt.Println("scoop cache cleaner (scc) 2.1.2, 2023-02-28")
+	fmt.Println("scoop cache cleaner (scc) 2.1.3, 2023-03-20")
 	fmt.Println()
 }
 
@@ -154,8 +155,33 @@ func setPackageInfoFormat(result *CleanResult) {
 	color.Reset()
 }
 
+func getPackageExtension(pack *PackageInfo) string {
+	ext := pack.FileName[len(pack.FileName)-extlength:]
+
+	d := strings.LastIndex(ext, ".")
+	s := ext[:d]
+
+	a := strings.LastIndex(s, ".")
+	b := strings.LastIndex(s, "-")
+	c := strings.LastIndex(s, "_")
+
+	if a < b {
+		a = b
+	}
+
+	if a < c {
+		a = c
+	}
+
+	a++
+	ext = ext[a:]
+
+	return ext
+}
+
 // package size limit by MB.
-const sizeColorLimit int64 = 1024 * 1024
+const mbColorLimit int64 = 1024 * 1024
+const mb100ColorLimit = mbColorLimit * 100
 
 // the counter for sequence number.
 var count = 1
@@ -163,20 +189,36 @@ var count = 1
 // previous package file extension.
 var lastExt = ""
 
+// pervious package info.
+var lastPack *PackageInfo = nil
+
 func showCleaningItem(pack *PackageInfo) {
 	color.Reset()
 
-	ext := pack.FileName[len(pack.FileName)-extlength:]
-	if ext == lastExt {
+	ext := getPackageExtension(pack)
+	same := false
+
+	if lastPack != nil && lastPack.Name == pack.Name {
+		// current package is as same as last one.
+		// version can be same or diff.
+		// then check the last extension.
+		same = ext == lastExt
+	}
+
+	lastPack = pack
+	lastExt = ext
+
+	if same {
 		ext = ""
 	}
-	lastExt = ext
 
 	fmt.Printf(packageInfoFormat, count, pack.Name, pack.Version, ext)
 	count++
 
-	if pack.Size < sizeColorLimit {
+	if pack.Size < mbColorLimit {
 		color.Set(color.Magenta)
+	} else if pack.Size < mb100ColorLimit {
+		color.Set(color.Red)
 	} else {
 		color.Set(color.LightRed)
 	}
