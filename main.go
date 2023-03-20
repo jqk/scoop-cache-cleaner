@@ -117,6 +117,9 @@ func showCleanStart(action *ActionInfo) {
 	fmt.Println()
 }
 
+// the length of package file extension.
+const extlength = 9
+
 func setPackageInfoFormat(result *CleanResult) {
 	if result.CleanCount == 0 {
 		return
@@ -137,7 +140,11 @@ func setPackageInfoFormat(result *CleanResult) {
 		}
 	}
 
-	packageInfoFormat = fmt.Sprintf("%%4d %%-%ds  %%-%ds  %%s  ", nameLength, versionLength)
+	// 1. sequence number, right aligned.
+	// 2. pacakge name,    left aligned.
+	// 3. package version, left aligned.
+	// 4. file extension,  right aligned.
+	packageInfoFormat = fmt.Sprintf("%%4d %%-%ds  %%-%ds  %%%ds  ", nameLength, versionLength, extlength)
 
 	t := fmt.Sprintf("     %%-%ds  %%-%ds  %%s  %%7s\n", nameLength, versionLength)
 	s := fmt.Sprintf(t, "Name", "Version", "Extension", "Size")
@@ -147,13 +154,25 @@ func setPackageInfoFormat(result *CleanResult) {
 	color.Reset()
 }
 
+// package size limit by MB.
+const sizeColorLimit int64 = 1024 * 1024
+
+// the counter for sequence number.
 var count = 1
-var sizeColorLimit int64 = 1024 * 1024
+
+// previous package file extension.
+var lastExt = ""
 
 func showCleaningItem(pack *PackageInfo) {
 	color.Reset()
-	// 9 is the length of 'Extension'.
-	fmt.Printf(packageInfoFormat, count, pack.Name, pack.Version, pack.FileName[len(pack.FileName)-9:])
+
+	ext := pack.FileName[len(pack.FileName)-extlength:]
+	if ext == lastExt {
+		ext = ""
+	}
+	lastExt = ext
+
+	fmt.Printf(packageInfoFormat, count, pack.Name, pack.Version, ext)
 	count++
 
 	if pack.Size < sizeColorLimit {
