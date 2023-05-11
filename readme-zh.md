@@ -20,7 +20,7 @@
 $ scc
 
 Copyright (c) 1999-2023 Not a dream Co., Ltd.
-scoop cache cleaner (scc) 2.1.3, 2023-03-20
+scoop cache cleaner (scc) 2.1.3, 2023-05-11
 
 Usage:
   scc <command> [path/to/scoop/cache]
@@ -65,168 +65,342 @@ List obsolete packages in: F:\Scoop\cache
 
      Name                             Version               Extension     Size
 
-   1 act                              0.2.42                   64.zip     5.39 MB
-   2 anki                             2.1.58                    dl.7z   136.44 MB
-   3 antidupl.net                     2.3.10                    dl.7z     3.45 MB
-   4 audacity                         3.2.4                   x64.zip    19.97 MB
-   5 baidunetdisk                     7.25.0.4                  dl.7z   236.99 MB
-   6 beekeeper                        0.11.18               eeper.exe    40.31 MB
-   7 beekeeper                        0.11.19                            40.31 MB
-   8 beyondcompare                    4.4.5.27371             x64.msi    17.22 MB
-   9 bookxnotepro                     2.0.0.1103            30204.zip    62.93 MB
-  10 bookxnotepro                     2.0.0.1104            30219.zip    62.95 MB
-  11 broot                            1.20.2                    2.zip    22.43 MB
-  12 Buzz                             0.7.1                    tar.gz   273.65 MB
-  13 ccleaner                         6.06.10144            up606.zip    42.04 MB
-  14 chezmoi                          2.31.0                amd64.zip     9.74 MB
-  15 chezmoi                          2.31.1                              9.75 MB
-  16 Clash-for-Windows                0.20.17                  win.7z    68.45 MB
-  17 Clash-for-Windows                0.20.18                            68.54 MB
-  18 containerd                       1.6.19                   tar.gz    31.84 MB
-  19 containerd                       1.6.9                              31.00 MB
-  20 copytranslator                   11.0.0                  win.zip    81.73 MB
-  21 cpu-z                            2.04                     en.zip     3.28 MB
-  22 croc                             9.6.3                 64bit.zip     2.66 MB
-  23 curl                             7.88.1                   tar.xz     6.05 MB
-  24 curl                             7.88.1_1                            6.05 MB
-  25 d2                               0.2.4                    tar.gz    15.78 MB
-  26 d2                               0.2.5                              17.36 MB
-  27 dbmate                           1.16.2                bmate.exe     7.73 MB
-  28 dbmate                           2.0.0                              13.62 MB
-  29 dbmate                           2.0.1                              13.61 MB
-  30 dbvis                            14.0                      0.zip   139.01 MB
-  31 dingtalk                         7.0.10.2189102            dl.7z   393.43 MB
-  32 diskusage                        1.1.0                 amd64.zip     2.74 MB
-  33 diskusage                        1.1.1                               2.74 MB
-  34 duckdb                           0.7.0                 amd64.zip     7.85 MB
-  35 dumo                             2.25.2.122             dumo.zip     2.81 MB
-  36 edrawmax-cn                      12.0.7                setup.exe   267.07 MB
-  37 EverythingToolbar                1.0.2                     2.msi     3.09 MB
-  38 feishu                           5.30.10                   10.7z   204.34 MB
-  39 feishu                           5.31.6                     6.7z   205.54 MB
-  40 feishu                           5.32.4                     4.7z   208.14 MB
-  41 ffmpeg                           5.1.2                  build.7z    45.23 MB
-  42 firefox-zh-cn                    110.0                 irefox.7z    55.29 MB
-  43 firefox-zh-cn                    110.0.1                            55.26 MB
-  44 flow-launcher                    1.13.0                table.zip   178.40 MB
-  45 foxit-reader                     12.1.0.1525           setup.exe   189.84 MB
-  46 geogebra                         6.0.760.0                 0.zip    95.79 MB
-  47 gimp                             2.10.32-1                 1.exe   252.99 MB
-  48 git                              2.39.2.windows.1          dl.7z    46.14 MB
-  49 github                           3.1.8                    dl.7z_   132.47 MB
-  50 glaryutilities                   5.201.0.230           table.zip    24.57 MB
-  51 go                               1.20.1                amd64.zip   108.08 MB
-  52 googlechrome                     109.0.5414.129            dl.7z    88.81 MB
-  53 goreleaser                       1.16.0                   64.zip    15.56 MB
-  54 gradle                           8.0.1                   all.zip   159.90 MB
-  55 hydrus-network                   517                    only.zip   220.74 MB
-  56 hydrus-network                   518                               223.68 MB
-  57 hydrus-network                   519                               223.70 MB
-  58 intellij-idea-ultimate-portable  2022.3.2-223.8617.56    win.zip     1.02 GB
-  59 intellij-idea-ultimate-portable  2022.3.2-223.8617.56  table.ps1     1.13 KB
-  60 intellij-idea-ultimate-portable  2022.3.3-223.8836.35    win.zip     1.03 GB
-  61 intellij-idea-ultimate-portable  2022.3.3-223.8836.35  table.ps1     1.13 KB
-  62 jenkins-lts                      2.375.3               nkins.jar    89.87 MB
-  63 lapce                            0.2.5                 table.zip    17.31 MB
-  64 lapce                            0.2.6                              17.52 MB
-  65 liquibase                        4.19.0                    0.zip    65.76 MB
-  66 liquibase                        4.19.1                    1.zip    65.97 MB
-  67 logseq                           0.8.18                    dl.7z   168.56 MB
-  68 lunacy                           8.7.2                     2.exe   120.13 MB
-  69 maven                            3.9.0                   bin.zip     8.70 MB
-  70 mdbook                           0.4.27                 msvc.zip     3.79 MB
-  71 micronaut                        3.8.5                     5.zip    25.27 MB
-  72 micronaut                        3.8.6                     6.zip    25.27 MB
-  73 microsoft-teams                  1.6.00.376            ull.nupkg   131.05 MB
-  74 mindmaster                       10.1.0                setup.exe   108.57 MB
-  75 naiveproxy                       110.0.5481.100-1        x64.zip     3.10 MB
-  76 nodejs                           19.7.0                   x64.7z    17.71 MB
-  77 nodejs                           19.8.0                             17.73 MB
-  78 notepadplusplus                  8.4.9                   x64.zip     5.39 MB
-  79 obsidian                         1.1.15                    dl.7z    69.37 MB
-  80 obsidian                         1.1.16                             69.38 MB
-  81 onefetch                         2.15.1                   tar.gz     5.23 MB
-  82 opera                            95.0.4635.46              dl.7z    93.03 MB
-  83 opera                            96.0.4693.20                       93.81 MB
-  84 opera                            96.0.4693.31                       94.08 MB
-  85 opera                            96.0.4693.50                       94.08 MB
-  86 paint.net                        5.0.1                   x64.zip    86.64 MB
-  87 pandoc                           3.1                      64.zip    25.06 MB
-  88 plantuml                         1.2023.1              ntuml.jar    10.56 MB
-  89 plantuml                         1.2023.2                           10.60 MB
-  90 postman                          10.11.1               ull.nupkg   158.85 MB
-  91 postman                          10.12.0                           163.36 MB
-  92 powertoys                        0.67.1                  x64.exe   167.66 MB
-  93 powertoys                        0.68.0                            169.23 MB
-  94 questdb                          7.0.0                    tar.gz     6.79 MB
-  95 schemacrawler                    16.19.7                   7.msi   226.85 MB
-  96 scoop-cache-cleaner              2.1.1                     1.tgz     1.65 MB
-  97 shadowsocks-rust                 1.15.2                 msvc.zip     9.95 MB
-  98 sourcetree                       3.4.12                ull.nupkg    24.21 MB
-  99 springboot                       3.0.2                   bin.zip     4.48 MB
- 100 springboot                       3.0.3                               4.49 MB
- 101 StrokesPlus.net                  0.5.7.2                   2.zip    23.50 MB
- 102 syncback                         10.2.88.0             Setup.exe    44.75 MB
- 103 syncthing                        1.23.1                    1.zip     9.54 MB
- 104 SysGauge                         9.1.12                    dl.7z     5.44 MB
- 105 SysGauge                         9.2.18                              5.45 MB
- 106 tabby                            1.0.188                   dl.7z    92.14 MB
- 107 tabby                            1.0.189                            92.54 MB
- 108 tabby                            1.0.191                            89.99 MB
- 109 teamviewer                       15.38.3               table.zip    50.28 MB
- 110 teamviewer                       15.39.5                            50.36 MB
- 111 telegram                         4.6.3                     3.zip    47.78 MB
- 112 telegram                         4.6.5                     5.zip    47.79 MB
- 113 tencentmeeting                   3.14.10.401               dl.7z   183.46 MB
- 114 tencentmeeting                   3.14.10.401           setup.exe   183.46 MB
- 115 thunderbird                      102.8.0                   dl.7z    53.86 MB
- 116 todesk                           4.6.1.3                   dl.7z    76.21 MB
- 117 tradingview                      1.0.9                 View.msix    89.57 MB
- 118 trid                             2.24-23.02.18         ddefs.zip     1.79 MB
- 119 trid                             2.24-23.02.18           w32.zip    47.98 KB
- 120 trid                             2.24-23.02.22         ddefs.zip     1.80 MB
- 121 trid                             2.24-23.02.22           w32.zip    47.98 KB
- 122 trid                             2.24-23.02.28         ddefs.zip     1.80 MB
- 123 trid                             2.24-23.02.28           w32.zip    47.98 KB
- 124 trid                             2.24-23.03.04         ddefs.zip     1.80 MB
- 125 trid                             2.24-23.03.04           w32.zip    47.98 KB
- 126 trid                             2.24-23.03.08         ddefs.zip     1.80 MB
- 127 trid                             2.24-23.03.08           w32.zip    47.98 KB
- 128 trid                             2.24-23.03.11         ddefs.zip     1.80 MB
- 129 trid                             2.24-23.03.11           w32.zip    47.98 KB
- 130 trid                             2.24-23.03.14         ddefs.zip     1.80 MB
- 131 trid                             2.24-23.03.14           w32.zip    47.98 KB
- 132 trilium                          0.58.8                    8.zip   100.83 MB
- 133 trilium                          0.59.1                    1.zip   101.55 MB
- 134 ugrep                            3.10.0                   ug.exe     1.84 MB
- 135 ugrep                            3.10.1                              1.84 MB
- 136 usql                             0.13.10               amd64.zip    24.19 MB
- 137 usql                             0.13.11                            24.20 MB
- 138 usql                             0.13.12                            24.43 MB
- 139 ventoy                           1.0.88                ndows.zip    15.86 MB
- 140 video-compare                    20230117                 64.zip    54.18 MB
- 141 video-compare                    20230223                           54.18 MB
- 142 video-compare                    20230306                           54.18 MB
- 143 vivaldi                          5.7.2921.53               dl.7z    87.80 MB
- 144 vivaldi                          5.7.2921.60                        87.81 MB
- 145 vscode                           1.75.1                    dl.7z   125.22 MB
- 146 vscode                           1.76.0                            120.76 MB
- 147 vscode                           1.76.1                            120.76 MB
- 148 watchexec                        1.20.5                 msvc.zip     1.92 MB
- 149 watchexec                        1.21.1                              2.00 MB
- 150 whatsapp                         2.2305.7                  dl.7z   152.37 MB
- 151 whatsapp                         2.2306.9                          152.50 MB
- 152 wireshark                        4.0.3                     dl.7z    75.08 MB
- 153 yanknote                         3.49.0                    0.zip   129.01 MB
- 154 yanknote                         3.50.1                    1.zip   129.00 MB
- 155 zotero                           6.0.20                    dl.7z    49.08 MB
- 156 zotero                           6.0.22                             49.08 MB
+   1 act                              0.2.43                86_64.zip     5.39 MB
+   2 act                              0.2.44                86_64.zip     5.42 MB
+   3 AgentRansack                     3367                  _3367.exe    46.97 MB
+   4 AgentRansack                     3385                  _3385.exe    46.73 MB
+   5 AgentRansack                     3386                  _3386.exe    46.74 MB
+   6 alldup                           4.4.56                table.zip    20.10 MB
+   7 alldup                           4.5.40                table.zip    27.83 MB
+   8 alldup                           4.5.42                table.zip    27.84 MB
+   9 alldup                           4.5.44                table.zip    27.93 MB
+  10 anki                             2.1.60                exe_dl.7z   136.49 MB
+  11 anki                             2.1.61                exe_dl.7z   136.83 MB
+  12 audacity                         3.2.5                 5-x64.zip    19.97 MB
+  13 audacity                         3.3.0                 0-x64.zip    20.97 MB
+  14 audacity                         3.3.1                 1-x64.zip    21.70 MB
+  15 baidunetdisk                     7.26.0.10             exe_dl.7z   239.37 MB
+  16 baidunetdisk                     7.27.1.5              exe_dl.7z   273.05 MB
+  17 beekeeper                        0.12.0                eeper.exe    40.95 MB
+  18 beekeeper                        0.12.1                eeper.exe    40.95 MB
+  19 beekeeper-studio                 3.8.9                 exe_dl.7z    63.51 MB
+  20 beekeeper-studio                 3.9.5                 exe_dl.7z    67.22 MB
+  21 beekeeper-studio                 3.9.8                 exe_dl.7z    67.21 MB
+  22 bookxnotepro                     2.0.0.1105            30306.zip    62.93 MB
+  23 broot                            1.21.1                .21.1.zip    22.51 MB
+  24 broot                            1.21.2                .21.2.zip    22.43 MB
+  25 Buzz                             0.7.2                 ws.tar.gz   274.21 MB
+  26 ccleaner                         6.1.0                 up610.zip    43.01 MB
+  27 charles                          4.6.3                 win64.msi    56.83 MB
+  28 chezmoi                          2.33.0                amd64.zip    10.23 MB
+  29 chezmoi                          2.33.1                amd64.zip    10.25 MB
+  30 chezmoi                          2.33.3                amd64.zip    10.25 MB
+  31 Clash-for-Windows                0.20.20               20-win.7z    73.46 MB
+  32 Clash-for-Windows                0.20.21               21-win.7z    73.47 MB
+  33 Clash-for-Windows                0.20.22               22-win.7z    73.47 MB
+  34 containerd                       1.7.0                 64.tar.gz    32.61 MB
+  35 curl                             8.0.1_4               gw.tar.xz     6.05 MB
+  36 curl                             8.0.1_5               gw.tar.xz     6.05 MB
+  37 curl                             8.0.1_6               gw.tar.xz     6.06 MB
+  38 curl                             8.0.1_7               gw.tar.xz     6.16 MB
+  39 curl                             8.0.1_8               gw.tar.xz     6.16 MB
+  40 d2                               0.2.6                 64.tar.gz    17.39 MB
+  41 d2                               0.3.0                 64.tar.gz    17.58 MB
+  42 d2                               0.4.0                 64.tar.gz    17.64 MB
+  43 d2                               0.4.1                 64.tar.gz    18.12 MB
+  44 dbvis                            14.0.1                4_0_1.zip   139.07 MB
+  45 dbvis                            23.1                  _23_1.zip   168.44 MB
+  46 diskgenius                       5.4.6.1441            1_x64.zip    46.32 MB
+  47 diskusage                        1.1.2                 amd64.zip     2.81 MB
+  48 diskusage                        1.1.3                 amd64.zip     2.81 MB
+  49 dismplusplus                     10.1.1002.1           002.1.zip     3.60 MB
+  50 ditto                            3.24.238.0            238_0.zip     4.67 MB
+  51 dngrep                           3.2.279.0             9.x64.msi     6.78 MB
+  52 dotpeek                          2022.3.3              tpeek.exe    85.98 MB
+  53 dotpeek                          2023.1                tpeek.exe    90.22 MB
+  54 draw.io                          20.8.16               exe_dl.7z    96.56 MB
+  55 draw.io                          21.1.2                exe_dl.7z    97.00 MB
+  56 draw.io                          21.2.1                exe_dl.7z    99.20 MB
+  57 edrawmax-cn                      12.0.8                setup.exe   269.04 MB
+  58 everything                       1.4.1.1022            2.x64.zip     1.72 MB
+  59 EverythingToolbar                1.0.3                 1.0.3.msi     3.09 MB
+  60 EverythingToolbar                1.0.4                 1.0.4.msi     3.21 MB
+  61 fastcopy                         4.2.2                 aller.exe     3.57 MB
+  62 fastcopy                         5.0.2                 aller.exe     4.13 MB
+  63 fastcopy                         5.0.3                 aller.exe     4.13 MB
+  64 fastcopy                         5.0.4                 aller.exe     4.13 MB
+  65 fastcopy                         5.0.5                 aller.exe     4.13 MB
+  66 feishu                           6.0.5                 -6.0.5.7z   208.44 MB
+  67 feishu                           6.1.5                 -6.1.5.7z   210.90 MB
+  68 feishu                           6.2.5                 -6.2.5.7z   212.55 MB
+  69 firefox                          111.0.1               exe_dl.7z    55.54 MB
+  70 firefox                          112.0                 exe_dl.7z    55.78 MB
+  71 firefox                          112.0.1               exe_dl.7z    55.77 MB
+  72 firefox                          112.0.2               exe_dl.7z    55.78 MB
+  73 flow-launcher                    1.14.0                table.zip   178.54 MB
+  74 flow-launcher                    1.14.1                table.zip   178.54 MB
+  75 foobar2000                       1.6.16                exe_dl.7z     4.63 MB
+  76 foxit-reader                     12.1.1.15289          setup.exe   189.83 MB
+  77 geogebra                         6.0.766.0             766-0.zip    95.81 MB
+  78 geogebra                         6.0.772.0             772-0.zip    95.81 MB
+  79 geogebra                         6.0.774.0             774-0.zip    95.81 MB
+  80 geogebra                         6.0.775.0             775-0.zip    95.81 MB
+  81 git                              2.40.0.windows.1      exe_dl.7z    46.82 MB
+  82 github                           3.2.0                 32_dl.7z_   132.48 MB
+  83 github                           3.2.1                 32_dl.7z_   132.79 MB
+  84 github                           3.2.2                 32_dl.7z_   133.13 MB
+  85 glaryutilities                   5.203.0.232           table.zip    24.68 MB
+  86 gnucash                          5.0                   setup.exe   144.04 MB
+  87 go                               1.20.2                amd64.zip   108.69 MB
+  88 go                               1.20.3                amd64.zip   108.73 MB
+  89 googlechrome                     109.0.5414.75         exe_dl.7z    88.82 MB
+  90 googlechrome                     112.0.5615.121        exe_dl.7z    89.08 MB
+  91 googlechrome                     112.0.5615.138        exe_dl.7z    89.16 MB
+  92 googlechrome                     112.0.5615.50         exe_dl.7z    89.14 MB
+  93 googlechrome                     112.0.5615.87         exe_dl.7z    89.15 MB
+  94 googlechrome                     113.0.5672.64         exe_dl.7z    90.52 MB
+  95 goreleaser                       1.16.2                86_64.zip    15.82 MB
+  96 goreleaser                       1.17.0                86_64.zip    16.00 MB
+  97 goreleaser                       1.17.1                86_64.zip    16.00 MB
+  98 goreleaser                       1.17.2                86_64.zip    16.00 MB
+  99 goreleaser                       1.18.1                86_64.zip    16.29 MB
+ 100 graalvm-jdk11                    22.3.1                2.3.1.zip   237.54 MB
+ 101 graalvm-jdk17                    22.3.1                2.3.1.zip   245.00 MB
+ 102 gradle                           8.0.2                 2-all.zip   159.90 MB
+ 103 gradle                           8.1                   1-all.zip   160.51 MB
+ 104 graphviz                         8.0.1                 exe_dl.7z     4.84 MB
+ 105 graphviz                         8.0.2                 exe_dl.7z     4.83 MB
+ 106 graphviz                         8.0.3                 exe_dl.7z     4.83 MB
+ 107 graphviz                         8.0.4                 exe_dl.7z     4.83 MB
+ 108 gsudo                            2.0.4                 2.0.4.zip     9.61 MB
+ 109 gsudo                            2.0.6                 p.x64.msi     2.21 MB
+ 110 gsudo                            2.0.7                 p.x64.msi     2.21 MB
+ 111 gsudo                            2.0.8                 p.x64.msi     2.21 MB
+ 112 HeidiSQL                         12.4                  table.zip    18.08 MB
+ 113 hydrus-network                   521                   .only.zip   223.73 MB
+ 114 hydrus-network                   522                   .only.zip   223.84 MB
+ 115 hydrus-network                   523                   .only.zip   223.90 MB
+ 116 hydrus-network                   524                   .only.zip   223.93 MB
+ 117 hydrus-network                   525                   .only.zip   228.43 MB
+ 118 imhex                            1.27.1                86_64.zip    23.05 MB
+ 119 intellij-idea-ultimate-portable  2022.3.3-223.8836.41  3.win.zip     1.03 GB
+ 120 intellij-idea-ultimate-portable  2022.3.3-223.8836.41  table.ps1     1.13 KB
+ 121 intellij-idea-ultimate-portable  2023.1-231.8109.175   1.win.zip     1.03 GB
+ 122 intellij-idea-ultimate-portable  2023.1-231.8109.175   table.ps1     1.13 KB
+ 123 jenkins-lts                      2.387.1               nkins.jar    93.78 MB
+ 124 jenkins-lts                      2.387.2               nkins.jar    93.80 MB
+ 125 joplin                           2.10.17               exe_dl.7z   196.67 MB
+ 126 joplin                           2.10.18               exe_dl.7z   195.33 MB
+ 127 kopia                            0.12.1                s-x64.zip    11.23 MB
+ 128 kopiaui                          0.12.1                1-win.zip    93.56 MB
+ 129 kopiaui                          0.12.1                exe_dl.7z    68.61 MB
+ 130 kopiaui                          0.13.0                0-win.zip   104.02 MB
+ 131 ktlint                           0.48.2                tlint.jar    62.13 MB
+ 132 lazygit                          0.37.0                86_64.zip     5.35 MB
+ 133 lazygit                          0.38.0                .download     4.02 MB
+ 134 lazygit                          0.38.1                86_64.zip     5.39 MB
+ 135 liquibase                        4.20.0                .20.0.zip    66.00 MB
+ 136 liquibase                        4.21.0                .21.0.zip    66.12 MB
+ 137 listen1desktop                   2.27.0                exe_dl.7z   171.41 MB
+ 138 logseq                           0.8.9                 exe_dl.7z   175.29 MB
+ 139 logseq                           0.9.0                 exe_dl.7z   168.89 MB
+ 140 logseq                           0.9.1                 exe_dl.7z   168.89 MB
+ 141 logseq                           0.9.2                 exe_dl.7z   169.07 MB
+ 142 logseq                           0.9.3                 exe_dl.7z   169.26 MB
+ 143 lunacy                           9.0.8                 9.0.8.exe   122.21 MB
+ 144 lx-music                         2.2.0                 -green.7z    64.74 MB
+ 145 manictime                        2023.1.1.0            n-x64.zip    78.92 MB
+ 146 micronaut                        3.8.7                 3.8.7.zip    25.27 MB
+ 147 micronaut                        3.8.8                 3.8.8.zip    25.28 MB
+ 148 micronaut                        3.8.9                 3.8.9.zip    25.29 MB
+ 149 micronaut                        3.9.0                 3.9.0.zip    25.45 MB
+ 150 microsoft-teams                  1.6.00.11166          ull.nupkg   134.58 MB
+ 151 microsoft-teams                  1.6.00.4472           ull.nupkg   134.18 MB
+ 152 miktex                           22.7                  7-x64.exe   132.71 MB
+ 153 mindmaster                       10.5.2                setup.exe   129.04 MB
+ 154 minikube                         1.29.0                ikube.exe    77.25 MB
+ 155 minikube                         1.30.0                ikube.exe    79.93 MB
+ 156 mobaxterm                        23.0                  v23.0.zip    28.30 MB
+ 157 mvndaemon                        0.9.0                 amd64.zip    18.64 MB
+ 158 naiveproxy                       111.0.5563.64-1       n-x64.zip     3.08 MB
+ 159 naiveproxy                       112.0.5615.49-1       n-x64.zip     3.08 MB
+ 160 naiveproxy                       113.0.5672.62-1       n-x64.zip     3.08 MB
+ 161 neovim                           0.8.3                 win64.zip    42.29 MB
+ 162 nginx                            1.23.3                .23.3.zip     1.67 MB
+ 163 nodejs                           19.8.1                in-x64.7z    17.73 MB
+ 164 nodejs                           19.9.0                in-x64.7z    17.69 MB
+ 165 nodejs                           20.0.0                in-x64.7z    17.66 MB
+ 166 notepadplusplus                  8.5.1                 e.x64.zip     5.43 MB
+ 167 obs-studio                       29.0.2                l-x64.zip   139.52 MB
+ 168 obsidian                         1.1.9                 exe_dl.7z    69.32 MB
+ 169 obsidian                         1.2.7                 exe_dl.7z    71.45 MB
+ 170 ocenaudio                        3.11.22               _v3.11.22    59.06 MB
+ 171 ocenaudio                        3.11.23               _v3.11.23    59.07 MB
+ 172 ocenaudio                        3.11.24               _v3.11.24    59.23 MB
+ 173 okular                           22.12.1-1265          exe_dl.7z   118.04 MB
+ 174 okular                           22.12.3               x86_64.7z   117.73 MB
+ 175 okular                           22.12.3-1357          x86_64.7z   117.77 MB
+ 176 okular                           22.12.3-1359          x86_64.7z   117.77 MB
+ 177 okular                           22.12.3-1360          x86_64.7z   117.78 MB
+ 178 okular                           23.04.0-1363          x86_64.7z   117.76 MB
+ 179 okular                           23.04.0-1364          x86_64.7z   117.76 MB
+ 180 okular                           23.04.0-1365          x86_64.7z   117.76 MB
+ 181 okular                           23.04.0-1367          x86_64.7z   117.73 MB
+ 182 okular                           23.04.0-1368          x86_64.7z   117.72 MB
+ 183 okular                           23.04.0-1369          x86_64.7z   117.73 MB
+ 184 okular                           23.04.0-1370          x86_64.7z   117.73 MB
+ 185 okular                           23.04.0-1372          x86_64.7z   117.72 MB
+ 186 okular                           23.04.0-1374          x86_64.7z   117.72 MB
+ 187 okular                           23.04.0-1375          x86_64.7z   117.73 MB
+ 188 okular                           23.04.0-1376          x86_64.7z   117.72 MB
+ 189 okular                           23.04.0-1378          x86_64.7z   117.73 MB
+ 190 okular                           23.04.0-1379          x86_64.7z   117.72 MB
+ 191 okular                           23.04.0-1380          x86_64.7z   117.73 MB
+ 192 onefetch                         2.16.0                in.tar.gz     5.27 MB
+ 193 onefetch                         2.17.0                in.tar.gz     5.28 MB
+ 194 openai-translator                0.0.37                en-US.msi     9.94 MB
+ 195 openai-translator                0.0.38                en-US.msi    10.26 MB
+ 196 openai-translator                0.0.39                en-US.msi    10.29 MB
+ 197 openai-translator                0.0.40                en-US.msi    10.29 MB
+ 198 openai-translator                0.0.41                en-US.msi    10.29 MB
+ 199 openai-translator                0.0.43                en-US.msi    10.29 MB
+ 200 opera                            97.0.4719.28          exe_dl.7z    95.48 MB
+ 201 opera                            97.0.4719.43          exe_dl.7z    95.48 MB
+ 202 opera                            97.0.4719.63          exe_dl.7z    95.49 MB
+ 203 opera                            97.0.4719.83          exe_dl.7z    95.50 MB
+ 204 paint.net                        5.0.2                 e.x64.zip    86.75 MB
+ 205 PandaOCRPro                      5.46                  _5.46.zip    11.94 MB
+ 206 plantuml                         1.2023.5              ntuml.jar    10.61 MB
+ 207 postman                          10.12.13              exe_dl.7z   165.11 MB
+ 208 postman                          10.13.0               exe_dl.7z   159.51 MB
+ 209 potplayer                        230207                exe_dl.7z    32.80 MB
+ 210 powertoys                        0.68.1                1-x64.exe   169.21 MB
+ 211 powertoys                        0.69.0                0-x64.exe   206.96 MB
+ 212 python                           3.11.2                setup.exe    24.15 MB
+ 213 questdb                          7.0.1                 in.tar.gz     6.80 MB
+ 214 questdb                          7.1                   in.tar.gz     6.77 MB
+ 215 quicker                          1.36.5.0              6.5.0.msi    19.02 MB
+ 216 rufus                            3.22                  rufus.exe     1.35 MB
+ 217 rustup                           1.25.2                -init.exe     9.53 MB
+ 218 shotcut                          22.12.21              21221.zip   135.89 MB
+ 219 slack                            4.31.155              ull.nupkg   109.61 MB
+ 220 snappy-driver-installer-origin   1.12.10.750           0.750.zip     6.17 MB
+ 221 snappy-driver-installer-origin   1.12.11.751           1.751.zip     6.18 MB
+ 222 snappy-driver-installer-origin   1.12.12.753           2.753.zip     6.18 MB
+ 223 springboot                       3.0.5                 5-bin.zip     4.50 MB
+ 224 switchhosts                      4.1.1.6077            exe_dl.7z   112.62 MB
+ 225 syncback                         10.2.112.0            Setup.exe    44.77 MB
+ 226 syncback                         10.2.116.0            Setup.exe    44.74 MB
+ 227 syncthing                        1.23.2                .23.2.zip     9.73 MB
+ 228 syncthing                        1.23.3                .23.3.zip     9.67 MB
+ 229 SysGauge                         9.3.12                exe_dl.7z     5.46 MB
+ 230 SysGauge                         9.4.16                exe_dl.7z     5.46 MB
+ 231 tabby                            1.0.196               exe_dl.7z    89.97 MB
+ 232 tailscale                        1.38.2                amd64.msi    18.47 MB
+ 233 tailscale                        1.38.3                amd64.msi    18.48 MB
+ 234 tailscale                        1.38.4                amd64.msi    18.68 MB
+ 235 teamviewer                       15.40.8               table.zip    52.16 MB
+ 236 teamviewer                       15.41.7               table.zip    52.98 MB
+ 237 teamviewer                       15.41.8               table.zip    52.98 MB
+ 238 telegram                         4.7.1                 4.7.1.zip    48.01 MB
+ 239 telegram                         4.8.0                 4.8.0.zip    48.33 MB
+ 240 thunderbird                      102.10.0              exe_dl.7z    53.90 MB
+ 241 thunderbird                      102.10.1              exe_dl.7z    53.89 MB
+ 242 thunderbird                      102.11.0              exe_dl.7z    53.93 MB
+ 243 thunderbird                      102.9.0               exe_dl.7z    53.87 MB
+ 244 todesk                           4.6.1.4               exe_dl.7z    77.91 MB
+ 245 todesk                           4.6.2.1               exe_dl.7z    85.96 MB
+ 246 todesk                           4.6.2.2               exe_dl.7z    86.02 MB
+ 247 tradingview                      2.2.0                 View.msix   102.91 MB
+ 248 tradingview                      2.3.1                 View.msix   102.47 MB
+ 249 tradingview                      2.3.3                 View.msix   102.47 MB
+ 250 trid                             2.24-23.03.28         ddefs.zip     1.82 MB
+ 251 trid                             2.24-23.03.28         d_w32.zip    47.98 KB
+ 252 trid                             2.24-23.04.01         ddefs.zip     1.82 MB
+ 253 trid                             2.24-23.04.01         d_w32.zip    47.98 KB
+ 254 trid                             2.24-23.04.03         ddefs.zip     1.83 MB
+ 255 trid                             2.24-23.04.03         d_w32.zip    47.98 KB
+ 256 trid                             2.24-23.04.05         ddefs.zip     1.83 MB
+ 257 trid                             2.24-23.04.05         d_w32.zip    47.98 KB
+ 258 trid                             2.24-23.04.08         ddefs.zip     1.83 MB
+ 259 trid                             2.24-23.04.08         d_w32.zip    47.98 KB
+ 260 trid                             2.24-23.04.10         ddefs.zip     1.83 MB
+ 261 trid                             2.24-23.04.10         d_w32.zip    47.98 KB
+ 262 trid                             2.24-23.04.12         ddefs.zip     1.84 MB
+ 263 trid                             2.24-23.04.12         d_w32.zip    47.98 KB
+ 264 trid                             2.24-23.04.14         ddefs.zip     1.84 MB
+ 265 trid                             2.24-23.04.14         d_w32.zip    47.98 KB
+ 266 trid                             2.24-23.04.17         ddefs.zip     1.84 MB
+ 267 trid                             2.24-23.04.17         d_w32.zip    47.98 KB
+ 268 trid                             2.24-23.04.19         ddefs.zip     1.84 MB
+ 269 trid                             2.24-23.04.19         d_w32.zip    47.98 KB
+ 270 trid                             2.24-23.04.23         ddefs.zip     1.85 MB
+ 271 trid                             2.24-23.04.23         d_w32.zip    47.98 KB
+ 272 trid                             2.24-23.04.25         ddefs.zip     1.85 MB
+ 273 trid                             2.24-23.04.25         d_w32.zip    47.98 KB
+ 274 trid                             2.24-23.04.28         ddefs.zip     1.85 MB
+ 275 trid                             2.24-23.04.28         d_w32.zip    47.98 KB
+ 276 trid                             2.24-23.04.30         ddefs.zip     1.85 MB
+ 277 trid                             2.24-23.04.30         d_w32.zip    47.98 KB
+ 278 trid                             2.24-23.05.02         ddefs.zip     1.85 MB
+ 279 trid                             2.24-23.05.02         d_w32.zip    47.98 KB
+ 280 trid                             2.24-23.05.04         ddefs.zip     1.85 MB
+ 281 trid                             2.24-23.05.04         d_w32.zip    47.98 KB
+ 282 trid                             2.24-23.05.07         ddefs.zip     1.86 MB
+ 283 trid                             2.24-23.05.07         d_w32.zip    47.98 KB
+ 284 trilium                          0.59.3                .59.3.zip   101.55 MB
+ 285 typst                            0.1                   -msvc.zip     8.49 MB
+ 286 typst                            0.1.0                 -msvc.zip     8.49 MB
+ 287 typst                            0.2.0                 -msvc.zip     9.61 MB
+ 288 typst                            0.3.0                 -msvc.zip    10.27 MB
+ 289 typst                            23-03-21-2            -msvc.zip     8.03 MB
+ 290 ugrep                            3.11.0                xe_ug.exe     1.84 MB
+ 291 ugrep                            3.11.1                xe_ug.exe     1.84 MB
+ 292 umi-ocr                          1.3.3                 guages.7z    50.49 MB
+ 293 umi-ocr                          1.3.3                 v1.3.3.7z    82.41 MB
+ 294 usql                             0.13.8                amd64.zip    23.59 MB
+ 295 usql                             0.14.0                amd64.zip    23.99 MB
+ 296 usql                             0.14.1                amd64.zip    24.01 MB
+ 297 usql                             0.14.2                amd64.zip    24.83 MB
+ 298 usql                             0.14.3                amd64.zip    24.86 MB
+ 299 v2ray                            5.3.0                 ws-64.zip    11.16 MB
+ 300 v2rayn                           5.39                  2rayN.zip     8.56 MB
+ 301 v2rayn                           6.21                  2rayN.zip    20.63 MB
+ 302 vcredist2022                     14.34.31931.0         t.x86.exe    13.19 MB
+ 303 vcredist2022                     14.34.31931.0         t.x64.exe    24.29 MB
+ 304 ventoy                           1.0.90                ndows.zip    15.87 MB
+ 305 VisualParadigm                   17.0.20230201         lFree.zip   738.46 MB
+ 306 vivaldi                          5.7.2921.65           exe_dl.7z    87.81 MB
+ 307 vivaldi                          5.7.2921.68           exe_dl.7z    87.80 MB
+ 308 vivaldi                          6.0.2979.11           exe_dl.7z    93.28 MB
+ 309 vivaldi                          6.0.2979.15           exe_dl.7z    93.31 MB
+ 310 vscode                           1.76.2                ble_dl.7z   120.76 MB
+ 311 vscode                           1.77.0                ble_dl.7z   119.64 MB
+ 312 vscode                           1.77.1                ble_dl.7z   119.62 MB
+ 313 vscode                           1.77.2                ble_dl.7z   119.62 MB
+ 314 vscode                           1.77.3                ble_dl.7z   119.62 MB
+ 315 vscode                           1.78.0                ble_dl.7z   123.13 MB
+ 316 whatsapp                         2.2310.5              pkg_dl.7z   153.09 MB
+ 317 whatsapp                         2.2314.11             pkg_dl.7z   151.73 MB
+ 318 whatsapp                         2.2317.10             pkg_dl.7z   152.10 MB
+ 319 whatsapp                         2.2317.11             pkg_dl.7z   152.27 MB
+ 320 whatsapp                         2.2318.10             pkg_dl.7z   152.40 MB
+ 321 wireshark                        4.0.4                 exe_dl.7z    75.10 MB
+ 322 wpsoffice                        11.2.0.11513          11513.exe   214.18 MB
+ 323 wpsoffice                        11.2.0.11516          11516.exe   214.16 MB
+ 324 wpsoffice                        11.2.0.11536          11536.exe   214.03 MB
+ 325 ximalaya                         3.3.6                 win_dl.7z    66.51 MB
+ 326 yanknote                         3.50.2                .50.2.zip   128.21 MB
+ 327 yanknote                         3.51.0                .51.0.zip   128.21 MB
+ 328 zotero                           6.0.23                exe_dl.7z    49.10 MB
+ 329 zotero                           6.0.25                exe_dl.7z    49.18 MB
+ 330 zoxide                           0.9.0                 -msvc.zip   522.12 KB
 
 -----------------------
-File found            : 495
-Software found        : 313
-Obsolete Package found: 156
-Obsolete Package Size : 12.09 GB
+File found            : 689
+Software found        : 334
+Obsolete Package found: 330
+Obsolete Package Size : 23.46 GB
 -----------------------
 ```
 

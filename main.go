@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/gookit/color"
 )
@@ -157,68 +156,31 @@ func setPackageInfoFormat(result *CleanResult) {
 
 func getPackageExtension(pack *PackageInfo) string {
 	ext := pack.FileName[len(pack.FileName)-extlength:]
-
-	d := strings.LastIndex(ext, ".")
-	s := ext[:d]
-
-	a := strings.LastIndex(s, ".")
-	b := strings.LastIndex(s, "-")
-	c := strings.LastIndex(s, "_")
-
-	if a < b {
-		a = b
-	}
-
-	if a < c {
-		a = c
-	}
-
-	a++
-	ext = ext[a:]
-
 	return ext
 }
 
 // package size limit by MB.
 const mbColorLimit int64 = 1024 * 1024
 const mb100ColorLimit = mbColorLimit * 100
+const gbColorLimit = mbColorLimit * 1024
 
 // the counter for sequence number.
 var count = 1
-
-// previous package file extension.
-var lastExt = ""
-
-// pervious package info.
-var lastPack *PackageInfo = nil
 
 func showCleaningItem(pack *PackageInfo) {
 	color.Reset()
 
 	ext := getPackageExtension(pack)
-	same := false
-
-	if lastPack != nil && lastPack.Name == pack.Name {
-		// current package is as same as last one.
-		// version can be same or diff.
-		// then check the last extension.
-		same = ext == lastExt
-	}
-
-	lastPack = pack
-	lastExt = ext
-
-	if same {
-		ext = ""
-	}
 
 	fmt.Printf(packageInfoFormat, count, pack.Name, pack.Version, ext)
 	count++
 
 	if pack.Size < mbColorLimit {
-		color.Set(color.Magenta)
+		color.Set(color.LightGreen)
 	} else if pack.Size < mb100ColorLimit {
-		color.Set(color.Red)
+		color.Set(color.Cyan)
+	} else if pack.Size < gbColorLimit {
+		color.Set(color.LightYellow)
 	} else {
 		color.Set(color.LightRed)
 	}
