@@ -58,7 +58,7 @@ func parseCmdParameter() *ActionInfo {
 func showVersion() {
 	fmt.Println()
 	fmt.Println("Copyright (c) 1999-2023 Not a dream Co., Ltd.")
-	fmt.Println("scoop cache cleaner (scc) 2.1.3, 2023-03-20")
+	fmt.Println("scoop cache cleaner (scc) 2.1.3, 2023-05-11")
 	fmt.Println()
 }
 

@@ -59,7 +59,7 @@ scoop install scoop-cache-cleaner
 $ scc -l
 
 Copyright (c) 1999-2023 Not a dream Co., Ltd.
-scoop cache cleaner (scc) 2.1.3, 2023-03-20
+scoop cache cleaner (scc) 2.1.3, 2023-05-11
 
 List obsolete packages in: F:\Scoop\cache
 
