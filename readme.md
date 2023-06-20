@@ -15,10 +15,31 @@ If you do not run `spoon cache rm *` or manually clean the directory, it will oc
 ## Usage
 
 ```text {.line-numbers}
-$ scc
+Copyright (c) 1999-2023 Not a dream Co., Ltd.
+scoop cache cleaner (scc) 2.2.0, 2023-06-20
+
+Usage:
+  scc <command> [path/to/scoop/cache]
+      clean up the specified scoop cache directory.
+      if the path is omitted, it will use the path defined in the environment variable %SCOOP%.
+
+Command (casesensitive):
+  -h, --help  :  show this help.
+  -l, --list  :  list the obsolete packages.
+  -b, --backup:  backup the obsolete packages.
+  -d, --delete:  delete the obsolete packages.
+  no argument :  equal to 'scc -l' if %SCOOP% exists, otherwise show help.
+
+all other parameters will display the above help information.
+```
+
+## Example
+
+```text {.line-numbers}
+$ scc -l
 
 Copyright (c) 1999-2023 Not a dream Co., Ltd.
-scoop cache cleaner (scc) 2.1.3, 2023-05-11
+scoop cache cleaner (scc) 2.2.0, 2023-06-20
 
 List obsolete packages in: F:\Scoop\cache
 
@@ -363,6 +384,7 @@ Obsolete Package Size : 23.46 GB
 -----------------------
 ```
 
-Using `scc -d` will directly delete the above installation packages.
+- `scc -b` will move the above installation packages to backup directory created under specified path.
+- `scc -d` will directly delete the above installation packages.
 
 [1]: https://github.com/ScoopInstaller/Scoop
