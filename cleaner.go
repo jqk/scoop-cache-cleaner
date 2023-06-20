@@ -66,19 +66,6 @@ type ActionInfo struct {
 	ScoopPath string
 }
 
-// NewAction creates ActionInfo object according to provided strings.
-func NewAction(action string, scoopPath string) *ActionInfo {
-	if action == "-l" {
-		return &ActionInfo{List, scoopPath}
-	} else if action == "-b" {
-		return &ActionInfo{Backup, scoopPath}
-	} else if action == "-d" {
-		return &ActionInfo{Delete, scoopPath}
-	}
-
-	return nil
-}
-
 // GetScoopPath gets the formal path string from the command parameter
 // or environment variable. At last, ensure the path exists.
 func GetScoopPath(param string) (string, error) {

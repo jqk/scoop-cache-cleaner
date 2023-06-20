@@ -17,21 +17,21 @@
 ## 三、 使用方法
 
 ```text {.line-numbers}
-$ scc
-
 Copyright (c) 1999-2023 Not a dream Co., Ltd.
-scoop cache cleaner (scc) 2.1.3, 2023-05-11
+scoop cache cleaner (scc) 2.2.0, 2023-06-20
 
 Usage:
   scc <command> [path/to/scoop/cache]
       清理指定文件夹中的安装包。如果不指定路径，则使用环境变量 %SCOOP% 中定义的路径。
 
-Command:
-  -l:  显示过期的安装包。
-  -b:  备份过期的安装包。
-  -d:  删除过期的安装包。
+Command (大小写敏感):
+  -h, --help  : 显示帮助。
+  -l, --list  : 显示过期的安装包。
+  -b, --backup: 备份过期的安装包。
+  -d, --delete: 删除过期的安装包。
+  无参数: 如果 %SCOOP% 已定义，则等同于运行 'scc -l'，否则显示帮助。
 
-如果命令行参数非以上格式，则显示本屏信息。
+如果命令行参数非以上格式，则显示本屏帮助信息。
 ```
 
 `%SCOOP%` 环境变量是在安装 [SCOOP][1] 设置的。例如, 若 `%SCOOP%` 值为 `C:\Scoop`，则 `scc -l` 将显示 `C:\Scoop\cache` 中的过期安装包。
@@ -59,7 +59,7 @@ scoop install scoop-cache-cleaner
 $ scc -l
 
 Copyright (c) 1999-2023 Not a dream Co., Ltd.
-scoop cache cleaner (scc) 2.1.3, 2023-05-11
+scoop cache cleaner (scc) 2.2.0, 2023-06-20
 
 List obsolete packages in: F:\Scoop\cache
 
@@ -404,6 +404,7 @@ Obsolete Package Size : 23.46 GB
 -----------------------
 ```
 
-使用 `scc -d` 将直接删除以上过期的安装包。
+- `scc -b` 将在给定目录下创建备份目录，并将以上过期的安装包移到该目录中。
+- `scc -d` 将直接删除以上过期的安装包。
 
 [1]: https://github.com/ScoopInstaller/Scoop
