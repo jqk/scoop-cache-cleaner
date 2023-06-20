@@ -11,7 +11,9 @@
           "mode": "auto",
           "program": "${workspaceFolder}",
           "env": {},
-          "args": ["-l"]
+          //"args": ["-l"]
+          //"args": ["-x"]
+          "args": ["--help"]
           //"args": []
           //"args": ["-l", "z:/"]
         }

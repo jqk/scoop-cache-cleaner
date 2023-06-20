@@ -12,16 +12,13 @@ var packageInfoFormat string
 func main() {
 	showVersion()
 
-	action := parseCmdParameter()
-	if action == nil {
-		showHelp()
-		return
-	}
-
-	var err error
-	action.ScoopPath, err = GetScoopPath(action.ScoopPath)
+	action, err := parseCmdParameter()
 	if err != nil {
+		showHelp()
 		showError(err)
+		return
+	} else if action == nil {
+		showHelp()
 		return
 	}
 
@@ -43,22 +40,47 @@ func main() {
 	showCleanResult(result)
 }
 
-func parseCmdParameter() *ActionInfo {
+func parseCmdParameter() (*ActionInfo, error) {
 	n := len(os.Args)
 
-	if n == 2 {
-		return NewAction(os.Args[1], "")
+	if n == 1 {
+		return newAction("", "")
+	} else if n == 2 {
+		if os.Args[1] == "-h" || os.Args[1] == "--help" {
+			return nil, nil
+		}
+		return newAction(os.Args[1], "")
 	} else if n == 3 {
-		return NewAction(os.Args[1], os.Args[2])
+		return newAction(os.Args[1], os.Args[2])
 	} else {
-		return nil
+		return nil, nil
 	}
+}
+
+// newAction creates ActionInfo object according to provided strings.
+func newAction(cmd string, scoopPath string) (*ActionInfo, error) {
+	scoopPath, err := GetScoopPath(scoopPath)
+
+	if cmd == "" {
+		if err != nil {
+			return nil, nil
+		}
+		return &ActionInfo{List, scoopPath}, nil
+	} else if cmd == "-l" || cmd == "--list" {
+		return &ActionInfo{List, scoopPath}, err
+	} else if cmd == "-b" || cmd == "--backup" {
+		return &ActionInfo{Backup, scoopPath}, err
+	} else if cmd == "-d" || cmd == "--delete" {
+		return &ActionInfo{Delete, scoopPath}, err
+	}
+
+	return nil, fmt.Errorf("unknown command: %s", cmd)
 }
 
 func showVersion() {
 	fmt.Println()
 	fmt.Println("Copyright (c) 1999-2023 Not a dream Co., Ltd.")
-	fmt.Println("scoop cache cleaner (scc) 2.1.3, 2023-03-20")
+	fmt.Println("scoop cache cleaner (scc) 2.2.0, 2023-06-20")
 	fmt.Println()
 }
 
@@ -72,26 +94,38 @@ func showHelp() {
 	fmt.Println("      if the path is omitted, it will use the path defined in the environment variable %SCOOP%.")
 
 	color.Set(color.LightYellow)
-	fmt.Println("\nCommand:")
-	fmt.Print("  -l: ")
+	fmt.Println("\nCommand (casesensitive):")
+	fmt.Print("  -h, --help  : ")
+
+	color.Reset()
+	fmt.Println(" show this help.")
+
+	color.Set(color.LightYellow)
+	fmt.Print("  -l, --list  : ")
 
 	color.Reset()
 	fmt.Println(" list the obsolete packages.")
 
 	color.Set(color.LightYellow)
-	fmt.Print("  -b: ")
+	fmt.Print("  -b, --backup: ")
 
 	color.Reset()
 	fmt.Println(" backup the obsolete packages.")
 
 	color.Set(color.LightYellow)
-	fmt.Print("  -d: ")
+	fmt.Print("  -d, --delete: ")
 
 	color.Reset()
 	fmt.Println(" delete the obsolete packages.")
 
 	color.Set(color.LightYellow)
-	fmt.Println("\nall other parameters will display the above information.")
+	fmt.Print("  no argument : ")
+
+	color.Reset()
+	fmt.Println(" equal to 'scc -l' if %SCOOP% exists, otherwise show help.")
+
+	color.Set(color.LightYellow)
+	fmt.Println("\nall other parameters will display the above help information.")
 	fmt.Println()
 
 	color.Reset()
@@ -236,4 +270,5 @@ func showError(err error) {
 	fmt.Println("---------- Error! ----------")
 	fmt.Println(err)
 	color.Reset()
+	fmt.Println()
 }
